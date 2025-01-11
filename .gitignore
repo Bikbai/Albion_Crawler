@@ -1,2 +1,5 @@
 /logs/*
+/logs/
 /.idea/*
+/Test/logs/
+/Test/logs/*

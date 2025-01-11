@@ -22,6 +22,7 @@ class EntityType(IntEnum):
     player = 2
     battles = 3
     event = 4
+    test = 5
 
 # Типы API
 class ApiType(IntEnum):

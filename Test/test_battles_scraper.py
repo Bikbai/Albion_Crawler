@@ -9,4 +9,4 @@ class TestAPI_Scraper(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.test_obj = API_Scraper(server=Realm.asia, entity=EntityType.event, api_type=ApiType.EVENT)
+        cls.test_obj = API_Scraper(server=Realm.asia, api_type=ApiType.EVENT)

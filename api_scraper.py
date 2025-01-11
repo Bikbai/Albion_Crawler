@@ -5,7 +5,7 @@ from typing import List, Union
 
 from rediscache import RedisCache
 from constants import Realm, ApiHelper, EntityType, ScrapeResult, ApiType, EntityKeys
-from kafka import KafkaProducer
+from kafka import KafkaProducer, TX_Scope
 import requests as rq
 from time import perf_counter_ns
 
@@ -22,7 +22,6 @@ class API_Scraper:
         self.helper = ApiHelper(server)
         self.kafka = KafkaProducer(server, self.entityType)
         self.apiType = api_type
-
         log.info("Scraper init done")
         self.paged_scrape_interrupted = False
 
@@ -54,7 +53,7 @@ class API_Scraper:
                         # log.info(f'battle {id} exists, skipping')
                         skipped_count += 1
                         continue
-                    returning_data.append([json_item, id])
+                    returning_data.append([json.dumps(json_item), id])
                     records_written += 1
                 log.info(
                     f'skipped {skipped_count} messages, prepared {records_written} messages.')
@@ -72,6 +71,7 @@ class API_Scraper:
                 else:
                     offset += 50
                     continue
+                    log.error()
         self.paged_scrape_interrupted = False
         return ScrapeResult.SUCCESS, returning_data
 
@@ -93,29 +93,44 @@ class API_Scraper:
             log.info(f"job done, sleeping for {current_delay} seconds")
             # были данные, сбрасываем таймер
             if result == ScrapeResult.SUCCESS:
-                for row in data:
-                    message = row[0]
-                    key = row[1]
-                    self.kafka.send_message(
-                        message=message,
-                        key=key)
-                    self.cache.put_value(key)
-                log.info(f"Written {len(data)} rows to kafka {self.kafka.info()}.")
+                current_delay = base_sleep_duration_seconds
+                try:
+                    self.kafka.begin_tran()
+                    # вначале пишем в кафку, если успешно - пишем в редис
+                    for row in data:
+                        message = row[0]
+                        key = row[1]
+                        self.kafka.send_message(
+                            message=message,
+                            key=key,
+                            tx_scope=TX_Scope.TX_EXTERNAL)
+                    for row in data:
+                        key = row[1]
+                        self.cache.put_value(key)
+                    self.kafka.commit_tran()
+                    log.info(f"Written {len(data)} rows to kafka {self.kafka.info()}.")
+                except Exception as ex:
+                    self.kafka.rollback_tran()
+                    log.error(f"Caught exception when writing data:")
+                    log.error(ex, stack_info=True, exc_info=True)
             pf_end = perf_counter_ns()
             log.info(f'Iteration {iter_num} finished, it took {(pf_end-pf_start)/1000000} ms')
-            current_delay = base_sleep_duration_seconds
             time.sleep(current_delay)
 
     def scrape_endpoint(self, offset) -> json:
-        uri = self.helper.get_uri(self.apiType, offset, "")
-        log.info(f'querying uri: {uri}')
-        pf_start = perf_counter_ns()
-        resp = rq.get(uri)
-        pf_stop = perf_counter_ns()
-        log.info(f'querying uri done, it took {(pf_stop - pf_start)/1000000} ms ')
-        if resp.status_code == 200:
-            js = resp.json()
-            return js
-        else:
-            log.error(f"queriyng {uri} returns {resp.status_code}")
+        try:
+            uri = self.helper.get_uri(self.apiType, offset, "")
+            log.info(f'querying uri: {uri}')
+            pf_start = perf_counter_ns()
+            resp = rq.get(uri)
+            pf_stop = perf_counter_ns()
+            log.info(f'querying uri done, it took {(pf_stop - pf_start)/1000000} ms ')
+            if resp.status_code == 200:
+                js = resp.json()
+                return js
+            else:
+                log.error(f"queriyng {uri} returns {resp.status_code}")
+                return None
+        except Exception as e:
+            log.error(e, stack_info=True, exc_info=True)
             return None

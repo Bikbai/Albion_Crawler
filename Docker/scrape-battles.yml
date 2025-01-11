@@ -1,31 +1,31 @@
 services:
   eu-battles:
-    image: 1.0-scrape-battles:latest
+    image: abome40k/albion-scraper:scrape-battles
     tty: true
     stdin_open: true
     command: python scrape_starter.py -server europe -apitype BATTLES
   am-battles:
-    image: 1.0-scrape-battles:latest
+    image: abome40k/albion-scraper:scrape-battles
     tty: true
     stdin_open: true
     command: python scrape_starter.py -server america -apitype BATTLES
   as-battles:
-    image: 1.0-scrape-battles:latest
+    image: abome40k/albion-scraper:scrape-battles
     tty: true
     stdin_open: true
     command: python scrape_starter.py -server asia -apitype BATTLES
   eu-events:
-    image: 1.0-scrape-battles:latest
+    image: abome40k/albion-scraper:scrape-battles
     tty: true
     stdin_open: true
     command: python scrape_starter.py -server europe -apitype EVENTS
   am-events:
-    image: 1.0-scrape-battles:latest
+    image: abome40k/albion-scraper:scrape-battles
     tty: true
     stdin_open: true
     command: python scrape_starter.py -server america -apitype EVENTS
   as-events:
-    image: 1.0-scrape-battles:latest
+    image: abome40k/albion-scraper:scrape-battles
     tty: true
     stdin_open: true
     command: python scrape_starter.py -server asia -apitype EVENTS
