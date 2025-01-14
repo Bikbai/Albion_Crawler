@@ -10,7 +10,8 @@ log = logging.getLogger(LOGGER_NAME)
 
 class TestAPI_Scraper(TestCase):
     def test_scrape_endpoint(self):
-        j = self.test_obj.scrape_endpoint(0)
+        custom_uri = 'https://gameinfo-ams.albiononline.com/api/gameinfo/events/battle/131330357?limit=50'
+        j = self.test_obj.scrape_endpoint(custom_uri=custom_uri)
         self.assertEqual(len(j), 50, "Returns unexpected count of rows")
 
     def test_paged_scrape(self):
@@ -32,4 +33,4 @@ class TestAPI_Scraper(TestCase):
     def setUpClass(cls):
         logging.basicConfig(level=logging.DEBUG)
         logging.getLogger().setLevel(logging.DEBUG)
-        cls.test_obj = API_Scraper(server=Realm.europe, api_type=ApiType.EVENTS)
+        cls.test_obj = API_Scraper(server=Realm.europe, api_type=ApiType.BATTLE_EVENTS)

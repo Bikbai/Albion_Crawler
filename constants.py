@@ -23,6 +23,9 @@ class EntityType(IntEnum):
     battles = 3
     event = 4
     test = 5
+    battlebatch = 7
+    eventbatch = 8
+    items = 9
 
 # Типы API
 class ApiType(IntEnum):

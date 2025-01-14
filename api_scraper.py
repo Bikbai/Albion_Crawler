@@ -23,16 +23,17 @@ class API_Scraper:
         self.kafka = KafkaProducer(server, self.entityType)
         self.apiType = api_type
         log.info("Scraper init done")
-        self.paged_scrape_interrupted = False
+        self.full_scrape = False
 
-    def paged_scrape(self) -> tuple[ScrapeResult, Union[None, list[json]]]:
+    def paged_scrape(self, id: str = "", full: bool = False) -> tuple[ScrapeResult, Union[None, list[json]]]:
         QUERY_ERROR_COUNT = 100
         offset = 0
         no_data_flag = False
         current_query_error_count = 0
         returning_data = []
+        self.full_scrape = full
         while offset < 1001:
-            res = self.scrape_endpoint(offset)
+            res = self.scrape_endpoint(offset, id)
             if res is None:
                 # error logged earlier
                 current_query_error_count += 1
@@ -40,16 +41,18 @@ class API_Scraper:
                 time.sleep(current_query_error_count)
                 if current_query_error_count > QUERY_ERROR_COUNT:
                     # выставляем флаг, следующий раз листаем до конца
-                    self.paged_scrape_interrupted = True
+                    self.full_scrape = True
                     return ScrapeResult.FAIL, None
                 continue
+            elif len(res) == 0:
+                return ScrapeResult.NO_DATA, None
             else:
                 #write data to kafka
                 records_written = 0
                 skipped_count = 0
                 for json_item in res:
                     id = json_item.get(EntityKeys.get(self.entityType))
-                    if self.cache.check_value(id):
+                    if self.cache.check_value(id) is not None:
                         # log.info(f'battle {id} exists, skipping')
                         skipped_count += 1
                         continue
@@ -63,7 +66,7 @@ class API_Scraper:
                         return ScrapeResult.SUCCESS, returning_data
                     # две страницы уже прочитаны и если предыдущий цикл не закончился ошибкой  выходим
                     if no_data_flag:
-                        if self.paged_scrape_interrupted is not True:
+                        if self.full_scrape is not True:
                             return ScrapeResult.NO_DATA, None
                     else:
                         no_data_flag = True
@@ -71,8 +74,7 @@ class API_Scraper:
                 else:
                     offset += 50
                     continue
-                    log.error()
-        self.paged_scrape_interrupted = False
+        self.full_scrape = False
         return ScrapeResult.SUCCESS, returning_data
 
     def do_crape(self):
@@ -117,9 +119,12 @@ class API_Scraper:
             log.info(f'Iteration {iter_num} finished, it took {(pf_end-pf_start)/1000000} ms')
             time.sleep(current_delay)
 
-    def scrape_endpoint(self, offset) -> json:
+    def scrape_endpoint(self, offset: int = 0, id: str = "", custom_uri: str | None = None) -> json:
         try:
-            uri = self.helper.get_uri(self.apiType, offset, "")
+            if custom_uri is None:
+                uri = self.helper.get_uri(self.apiType, offset, id)
+            else:
+                uri = custom_uri
             log.info(f'querying uri: {uri}')
             pf_start = perf_counter_ns()
             resp = rq.get(uri)

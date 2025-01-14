@@ -1,14 +1,16 @@
 import functools
 import logging
 import os
+from contextlib import contextmanager
 from logging.handlers import SysLogHandler
 from time import perf_counter_ns
+import json
 
 from constants import LOGGER_NAME
 
 
 # я ни хрена не понимаю как это работает, но оно работает
-def timer(logger):
+def timer_decorator(logger):
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -20,6 +22,15 @@ def timer(logger):
         return wrapper
     return decorator
 
+@contextmanager
+def timer(logger, descriptor):
+    pf_start = perf_counter_ns()
+    try:
+        yield
+    finally:
+        # Внутри вызова __exit__
+        pf_end = perf_counter_ns()
+        logger.info(f"Execution of {descriptor} took {(pf_end - pf_start) / 1000000} ms")
 
 def setup_logger(level=logging.INFO):
     env_level = os.environ.get('LOGGING.LEVEL')
@@ -57,3 +68,4 @@ def setup_logger(level=logging.INFO):
     for h in handlers:
         logger.addHandler(h)
     return logger
+

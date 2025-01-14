@@ -6,7 +6,7 @@ from confluent_kafka import Producer, Consumer, KafkaError, KafkaException, Mess
 from confluent_kafka.admin import TopicMetadata
 from confluent_kafka.serialization import StringSerializer, StringDeserializer
 from constants import Realm, EntityType, LOGGER_NAME
-from utility import timer
+from utility import timer_decorator
 
 import logging
 log = logging.getLogger(LOGGER_NAME)
@@ -18,16 +18,18 @@ base_config = {
 producer_config = base_config.copy()
 
 producer_config.update(
-    {'transactional.id': f'tx-{int(uuid.uuid4())}',
-     'enable.idempotence': True})
+    {
+        'enable.idempotence': str(True),
+        'transaction.timeout.ms': '600000'
+     }
+)
 
 consumer_config = base_config.copy()
 consumer_config.update(
-    {"group.id": "main.processor",
+    {"group.id": "main.processor.v4",
      'auto.offset.reset': 'earliest',
-#     'group.instance.id': 'rdkafka-82371374-aa32-470a-9799-d308489a95c3',
      'session.timeout.ms': 6000,
-     'enable.auto.offset.store': False})
+     'enable.auto.offset.store': False}) #коммит руками
 
 class TX_Scope(Enum):
     TX_INTERNAL_ROLLBACK = 0,
@@ -49,16 +51,17 @@ class KafkaProducer:
     def __init__(self, realm: Realm, entity: EntityType):
         message_id = uuid.uuid4()
         self.partition_id = 0
-        log.info(f"Kafka producer init started, generating test message with {message_id}")
+        producer_config.update({'transactional.id': f'tx-{int(uuid.uuid4())}'})
         self.__producer = Producer(producer_config)
-
-        tmp_consumer = Consumer(consumer_config)
-        self.__topic = f'{entity.name}-{realm.name}'
-        tm: TopicMetadata = tmp_consumer.list_topics(topic=self.__topic).topics.get(self.__topic)
-        self.__max_partitions = len(tm.partitions)
         self.__producer.init_transactions()
-        self.send_message("test data", message_id, TX_Scope.TX_INTERNAL_ROLLBACK)
-        tmp_consumer.close()
+        self.__topic = f'{entity.name}-{realm.name}'
+        self.__max_partitions = 1
+        #log.info(f"Kafka producer init started, generating test message with {message_id}")
+        #tmp_consumer = Consumer(consumer_config)
+        #tm: TopicMetadata = tmp_consumer.list_topics(topic=self.__topic).topics.get(self.__topic)
+        #self.__max_partitions = len(tm.partitions)
+        #self.send_message("test data", message_id, TX_Scope.TX_INTERNAL_ROLLBACK)
+        #tmp_consumer.close()
         log.info("Kafka producer init done, test message rolled back")
 
     def begin_tran(self):
@@ -82,7 +85,7 @@ class KafkaProducer:
     def info(self):
         return f'topic: {self.__topic}'
 
-    @timer(logger=log)
+    @timer_decorator(logger=log)
     def send_message(self, message, key, tx_scope: TX_Scope = TX_Scope.TX_INTERNAL_ROLLBACK):
         if isinstance(message, dict):
             payload = json.dumps(message).encode('utf-8')
@@ -117,10 +120,13 @@ class KafkaConsumer:
         self.__consumer.memberid()
         log.info("Kafka producer init done")
 
+    def get_topic(self):
+        return self.__topic
+
     def __del__(self):
         self.__consumer.close()
 
-    @timer(logger=log)
+    @timer_decorator(logger=log)
     def get(self):
         msg = self.__consumer.poll()
         if msg is None:

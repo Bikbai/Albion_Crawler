@@ -3,29 +3,4 @@ services:
     image: abome40k/albion-scraper:scrape-battles
     tty: true
     stdin_open: true
-    command: python scrape_starter.py -server europe -apitype BATTLES
-  am-battles:
-    image: abome40k/albion-scraper:scrape-battles
-    tty: true
-    stdin_open: true
-    command: python scrape_starter.py -server america -apitype BATTLES
-  as-battles:
-    image: abome40k/albion-scraper:scrape-battles
-    tty: true
-    stdin_open: true
-    command: python scrape_starter.py -server asia -apitype BATTLES
-  eu-events:
-    image: abome40k/albion-scraper:scrape-battles
-    tty: true
-    stdin_open: true
-    command: python scrape_starter.py -server europe -apitype EVENTS
-  am-events:
-    image: abome40k/albion-scraper:scrape-battles
-    tty: true
-    stdin_open: true
-    command: python scrape_starter.py -server america -apitype EVENTS
-  as-events:
-    image: abome40k/albion-scraper:scrape-battles
-    tty: true
-    stdin_open: true
-    command: python scrape_starter.py -server asia -apitype EVENTS
+    command: python batle_starter.py -server europe

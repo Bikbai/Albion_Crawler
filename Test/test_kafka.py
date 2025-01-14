@@ -1,5 +1,5 @@
 from unittest import TestCase
-from kafka import KafkaProducer, KafkaConsumer, TX_Scope, gen_topics
+from kafka import KafkaProducer, KafkaConsumer, TX_Scope, gen_topics, Topic
 from constants import Realm, EntityType, LOGGER_NAME
 import json
 import logging
@@ -12,6 +12,10 @@ class TestKafkaProducer(TestCase):
     def setUpClass(cls):
         cls.producer = KafkaProducer(realm=Realm.europe, entity=EntityType.test)
         cls.consumer = KafkaConsumer(realm=Realm.europe, entity=EntityType.test)
+
+    def test_topic(self):
+        s = Topic(Realm.europe, EntityType.test)
+        self.assertEqual(str(s), 'test-europe')
 
     def test_send_consume(self):
         i = 0

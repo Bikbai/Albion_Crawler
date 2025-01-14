@@ -1,7 +1,6 @@
 redis~=5.2.1
 requests~=2.32.3
-psycopg~=3.2.3
-psycopg_pool
+psycopg[binary,pool]~=3.2.3
 setuptools~=75.6.0
 clickhouse_connect
 confluent_kafka
