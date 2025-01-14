@@ -31,4 +31,5 @@ jobs:
       with:
         context: .
         push: true
+        file: ./Docker/scrape-battles.dockerfile
         tags: abome40k/albion-scraper:battles
