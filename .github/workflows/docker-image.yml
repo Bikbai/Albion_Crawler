@@ -31,4 +31,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: abome40k/albion-scraper:battles.$(date +%s)
+        tags: abome40k/albion-scraper:battles
