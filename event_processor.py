@@ -66,14 +66,19 @@ class EventProcessor:
             for k, v in item.items():
                 if k in stored_keys:
                     if k == 'Type':
-                        id = self.item_cache.find_item(item.get('Type'))
-                        r_item.update({'id': id})
+                        internal_id = self.item_cache.find_item(item.get('Type'))
+                        r_item.update({'id': internal_id})
                     else:
                         r_item.update({k: v})
             retval.append(r_item)
         return retval
 
     def process_equipment(self, data:json) -> [json]:
+        retval = []
+        if len(data) == 0:
+            return retval
+        for i_type, i_descr in data.items():
+
 
 
     def process_one(self, data: json) -> (ScrapeResult, json):

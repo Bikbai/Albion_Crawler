@@ -87,7 +87,12 @@ class API_Scraper:
         while True:
             pf_start = perf_counter_ns()
             iter_num += 1
-            result, data = self.paged_scrape()
+            # первый старт - всегда полный
+            if iter_num == 1:
+                full_scrape = True
+            else:
+                full_scrape = False
+            result, data = self.paged_scrape(full=full_scrape)
             if result in (ScrapeResult.NO_DATA, ScrapeResult.FAIL):
                 current_delay += sleep_duration_increase
                 if current_delay > max_sleep_duration_seconds:
