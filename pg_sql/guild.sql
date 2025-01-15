@@ -1,4 +1,4 @@
-create table guild
+create table europe.guild
 (
     internal_id bigint primary key generated always AS IDENTITY NOT NULL,
     id varchar NOT NULL,
@@ -13,10 +13,10 @@ create table guild
     member_count bigint,
     last_updated timestamp default now()
 );
-alter table guild
+alter table europe.guild
     alter column internal_id
         set maxvalue 2147483647;
 
-alter table guild
+alter table europe.guild
     add constraint uc_id
         unique (id);

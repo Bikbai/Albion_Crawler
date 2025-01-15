@@ -1,0 +1,1165 @@
+{
+    "numberOfParticipants": 3,
+    "groupMemberCount": 3,
+    "EventId": 134614966,
+    "TimeStamp": "2025-01-14T21:05:24.500371300Z",
+    "Version": 4,
+    "Killer": {
+        "AverageItemPower": 1191.66992,
+        "Equipment": {
+            "MainHand": {
+                "Type": "T5_2H_DUALSICKLE_UNDEAD@4",
+                "Count": 1,
+                "Quality": 4,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": {
+                    "id": "3a1ceead-9bef-48d3-841c-5b99bb84fd42",
+                    "subtype": 1,
+                    "era": 1,
+                    "name": null,
+                    "lastEquipped": "2025-01-14T20:59:16.999919900Z",
+                    "attunedPlayer": "d4a8a3f5-bbec-4951-9b06-37e5dfd26fe4",
+                    "attunedPlayerName": "Aksin",
+                    "attunement": 221531380,
+                    "attunementSpentSinceReset": 24640670,
+                    "attunementSpent": 24640670,
+                    "quality": 4,
+                    "craftedBy": "ValiBey",
+                    "traits": [
+                        {
+                            "roll": 0.3241346961138557,
+                            "pendingRolls": [],
+                            "pendingTraits": [],
+                            "value": 39.7072,
+                            "trait": "TRAIT_ITEM_POWER",
+                            "minvalue": 1.1999999,
+                            "maxvalue": 120
+                        }
+                    ],
+                    "PvPFameGained": 1259107824
+                }
+            },
+            "OffHand": null,
+            "Head": {
+                "Type": "T4_HEAD_LEATHER_SET2@2",
+                "Count": 1,
+                "Quality": 4,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Armor": {
+                "Type": "T6_ARMOR_CLOTH_SET2",
+                "Count": 1,
+                "Quality": 3,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Shoes": {
+                "Type": "T4_SHOES_PLATE_SET1@3",
+                "Count": 1,
+                "Quality": 4,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Bag": null,
+            "Cape": {
+                "Type": "T4_CAPEITEM_FW_MARTLOCK@2",
+                "Count": 1,
+                "Quality": 4,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Mount": {
+                "Type": "T3_MOUNT_HORSE",
+                "Count": 1,
+                "Quality": 1,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Potion": {
+                "Type": "T7_POTION_REVIVE",
+                "Count": 2,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Food": null
+        },
+        "Inventory": [],
+        "Name": "C94Ibrahim",
+        "Id": "qz-7gsshTkSTGNClqrkWwQ",
+        "GuildName": "",
+        "GuildId": "",
+        "AllianceName": "",
+        "AllianceId": "",
+        "AllianceTag": "",
+        "Avatar": "AVATAR_ANNIVERSARY_2024",
+        "AvatarRing": "AVATARRING_ARENA_GOLD1",
+        "DeathFame": 0,
+        "KillFame": 8552,
+        "FameRatio": 85520,
+        "LifetimeStatistics": {
+            "PvE": {
+                "Total": 0,
+                "Royal": 0,
+                "Outlands": 0,
+                "Avalon": 0,
+                "Hellgate": 0,
+                "CorruptedDungeon": 0,
+                "Mists": 0
+            },
+            "Gathering": {
+                "Fiber": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "Hide": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "Ore": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "Rock": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "Wood": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "All": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                }
+            },
+            "Crafting": {
+                "Total": 0,
+                "Royal": 0,
+                "Outlands": 0,
+                "Avalon": 0
+            },
+            "CrystalLeague": 0,
+            "FishingFame": 0,
+            "FarmingFame": 0,
+            "Timestamp": null
+        }
+    },
+    "Victim": {
+        "AverageItemPower": 1127.2533,
+        "Equipment": {
+            "MainHand": {
+                "Type": "T4_MAIN_AXE@2",
+                "Count": 1,
+                "Quality": 4,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "OffHand": {
+                "Type": "T5_OFF_TORCH",
+                "Count": 1,
+                "Quality": 2,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Head": {
+                "Type": "T4_HEAD_LEATHER_SET1@1",
+                "Count": 1,
+                "Quality": 3,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Armor": {
+                "Type": "T5_ARMOR_LEATHER_SET1",
+                "Count": 1,
+                "Quality": 3,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Shoes": {
+                "Type": "T5_SHOES_PLATE_SET1@2",
+                "Count": 1,
+                "Quality": 2,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Bag": {
+                "Type": "T4_BAG@1",
+                "Count": 1,
+                "Quality": 1,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Cape": {
+                "Type": "T4_CAPE@1",
+                "Count": 1,
+                "Quality": 3,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Mount": {
+                "Type": "T3_MOUNT_HORSE",
+                "Count": 1,
+                "Quality": 1,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            "Potion": null,
+            "Food": {
+                "Type": "T8_MEAL_STEW",
+                "Count": 1,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            }
+        },
+        "Inventory": [
+            {
+                "Type": "T5_RUNE",
+                "Count": 1,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T4_RUNE",
+                "Count": 7,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T4_SHOES_PLATE_UNDEAD",
+                "Count": 1,
+                "Quality": 1,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T4_SKILLBOOK_STANDARD",
+                "Count": 2,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T6_OFF_SHIELD",
+                "Count": 1,
+                "Quality": 4,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T8_POTION_CLEANSE",
+                "Count": 3,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "TREASURE_TRIBAL_RARITY3",
+                "Count": 1,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T5_2H_TOOL_KNIFE",
+                "Count": 1,
+                "Quality": 1,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T6_SOUL",
+                "Count": 1,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "TREASURE_RITUAL_RARITY3",
+                "Count": 1,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        ],
+        "Name": "iqquQQ",
+        "Id": "oPN6_7H5SP24DYQYiIAwWg",
+        "GuildName": "LGPG",
+        "GuildId": "UeXgSDuKQkWUUTA2PoXpzg",
+        "AllianceName": "YKING",
+        "AllianceId": "b21dqwxsSt2ik3mcVnSplg",
+        "AllianceTag": "",
+        "Avatar": "AVATAR_02",
+        "AvatarRing": "RING1",
+        "DeathFame": 25656,
+        "KillFame": 0,
+        "FameRatio": 0,
+        "LifetimeStatistics": {
+            "PvE": {
+                "Total": 0,
+                "Royal": 0,
+                "Outlands": 0,
+                "Avalon": 0,
+                "Hellgate": 0,
+                "CorruptedDungeon": 0,
+                "Mists": 0
+            },
+            "Gathering": {
+                "Fiber": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "Hide": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "Ore": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "Rock": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "Wood": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "All": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                }
+            },
+            "Crafting": {
+                "Total": 0,
+                "Royal": 0,
+                "Outlands": 0,
+                "Avalon": 0
+            },
+            "CrystalLeague": 0,
+            "FishingFame": 0,
+            "FarmingFame": 0,
+            "Timestamp": null
+        }
+    },
+    "TotalVictimKillFame": 25656,
+    "Location": null,
+    "Participants": [
+        {
+            "AverageItemPower": 1203.745,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T6_2H_LONGBOW",
+                    "Count": 1,
+                    "Quality": 1,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": null,
+                "Head": {
+                    "Type": "T6_HEAD_LEATHER_SET2",
+                    "Count": 1,
+                    "Quality": 2,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Armor": {
+                    "Type": "T4_ARMOR_LEATHER_SET1@2",
+                    "Count": 1,
+                    "Quality": 2,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Shoes": {
+                    "Type": "T4_SHOES_CLOTH_SET1@2",
+                    "Count": 1,
+                    "Quality": 2,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Bag": {
+                    "Type": "T4_BAG@1",
+                    "Count": 1,
+                    "Quality": 3,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Cape": {
+                    "Type": "T4_CAPE@2",
+                    "Count": 1,
+                    "Quality": 1,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Mount": {
+                    "Type": "T3_MOUNT_HORSE",
+                    "Count": 1,
+                    "Quality": 1,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Potion": {
+                    "Type": "T8_POTION_CLEANSE",
+                    "Count": 1,
+                    "Quality": 0,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "KTurk",
+            "Id": "u0g6gxR2QKehTaz9QTZgmg",
+            "GuildName": "",
+            "GuildId": "",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_WOLF_01",
+            "AvatarRing": "AVATARRING_AJ_PVP_01",
+            "DeathFame": 0,
+            "KillFame": 0,
+            "FameRatio": 0,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            },
+            "DamageDone": 3329,
+            "SupportHealingDone": 0
+        },
+        {
+            "AverageItemPower": 1251.10254,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T6_MAIN_AXE@1",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": {
+                    "Type": "T5_OFF_DEMONSKULL_HELL@2",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Head": {
+                    "Type": "T4_HEAD_LEATHER_UNDEAD@2",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Armor": {
+                    "Type": "T6_ARMOR_LEATHER_SET1@1",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Shoes": {
+                    "Type": "T6_SHOES_PLATE_SET1",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Bag": {
+                    "Type": "T5_BAG",
+                    "Count": 1,
+                    "Quality": 2,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Cape": {
+                    "Type": "T4_CAPEITEM_AVALON@2",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Mount": {
+                    "Type": "T4_MOUNT_HORSE",
+                    "Count": 1,
+                    "Quality": 1,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Potion": {
+                    "Type": "T7_POTION_REVIVE",
+                    "Count": 2,
+                    "Quality": 0,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "R3C3P",
+            "Id": "WSOPKTx1TSmgqxb8N1ciOg",
+            "GuildName": "",
+            "GuildId": "",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_FOUNDER_EUROPE_GOLD_LIGHT",
+            "AvatarRing": "AVATARRING_AJ_ECONOMY_01",
+            "DeathFame": 0,
+            "KillFame": 0,
+            "FameRatio": 0,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            },
+            "DamageDone": 2684,
+            "SupportHealingDone": 0
+        },
+        {
+            "AverageItemPower": 1191.66992,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T6_2H_HOLYSTAFF@1",
+                    "Count": 1,
+                    "Quality": 1,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": null,
+                "Head": {
+                    "Type": "T4_HEAD_LEATHER_SET2@2",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Armor": {
+                    "Type": "T6_ARMOR_CLOTH_SET2",
+                    "Count": 1,
+                    "Quality": 3,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Shoes": {
+                    "Type": "T4_SHOES_PLATE_SET1@3",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Bag": null,
+                "Cape": {
+                    "Type": "T4_CAPEITEM_FW_MARTLOCK@2",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Mount": {
+                    "Type": "T3_MOUNT_HORSE",
+                    "Count": 1,
+                    "Quality": 1,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Potion": {
+                    "Type": "T7_POTION_REVIVE",
+                    "Count": 2,
+                    "Quality": 0,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "C94Ibrahim",
+            "Id": "qz-7gsshTkSTGNClqrkWwQ",
+            "GuildName": "",
+            "GuildId": "",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_ANNIVERSARY_2024",
+            "AvatarRing": "AVATARRING_ARENA_GOLD1",
+            "DeathFame": 0,
+            "KillFame": 0,
+            "FameRatio": 0,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            },
+            "DamageDone": 139,
+            "SupportHealingDone": 1202
+        }
+    ],
+    "GroupMembers": [
+        {
+            "AverageItemPower": 0,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T6_2H_HOLYSTAFF@1",
+                    "Count": 1,
+                    "Quality": 1,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": null,
+                "Head": null,
+                "Armor": null,
+                "Shoes": null,
+                "Bag": null,
+                "Cape": null,
+                "Mount": null,
+                "Potion": null,
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "C94Ibrahim",
+            "Id": "qz-7gsshTkSTGNClqrkWwQ",
+            "GuildName": "",
+            "GuildId": "",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_ANNIVERSARY_2024",
+            "AvatarRing": "AVATARRING_ARENA_GOLD1",
+            "DeathFame": 0,
+            "KillFame": 8552,
+            "FameRatio": 85520,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            }
+        },
+        {
+            "AverageItemPower": 0,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T6_2H_LONGBOW",
+                    "Count": 1,
+                    "Quality": 1,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": null,
+                "Head": null,
+                "Armor": null,
+                "Shoes": null,
+                "Bag": null,
+                "Cape": null,
+                "Mount": null,
+                "Potion": null,
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "KTurk",
+            "Id": "u0g6gxR2QKehTaz9QTZgmg",
+            "GuildName": "",
+            "GuildId": "",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_WOLF_01",
+            "AvatarRing": "AVATARRING_AJ_PVP_01",
+            "DeathFame": 0,
+            "KillFame": 8552,
+            "FameRatio": 85520,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            }
+        },
+        {
+            "AverageItemPower": 0,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T6_MAIN_AXE@1",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": null,
+                "Head": null,
+                "Armor": null,
+                "Shoes": null,
+                "Bag": null,
+                "Cape": null,
+                "Mount": null,
+                "Potion": null,
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "R3C3P",
+            "Id": "WSOPKTx1TSmgqxb8N1ciOg",
+            "GuildName": "",
+            "GuildId": "",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_FOUNDER_EUROPE_GOLD_LIGHT",
+            "AvatarRing": "AVATARRING_AJ_ECONOMY_01",
+            "DeathFame": 0,
+            "KillFame": 8552,
+            "FameRatio": 85520,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            }
+        }
+    ],
+    "GvGMatch": null,
+    "BattleId": 134614966,
+    "KillArea": "OPEN_WORLD",
+    "Category": null,
+    "Type": "KILL"
+}

@@ -2,6 +2,7 @@ import json
 from rediscache import RedisCache
 from constants import Realm, EntityType
 from postgresdb import PostgresDB
+import requests
 
 import logging
 from constants import LOGGER_NAME
@@ -14,13 +15,22 @@ class Item(RedisCache):
 
     def __init__(self, pg_db: PostgresDB, realm: Realm):
         self.pg = pg_db
-        super(Item, self).__init__(realm, EntityType.guild)
+        super(Item, self).__init__(realm, EntityType.item)
 
-    def find_guild(self, gld_id: str, gld_name: str) -> int:
-        gld_internal_id = super(Guild, self).check_value(gld_id)
-        if gld_internal_id is None:
-            gld_internal_id = self.pg.insert_dummy_guild(gld_id, gld_name)
-            super(Guild, self).put_value(key=gld_id, value=str(gld_internal_id))
-            log.info(f"inserted dummy new guild record: {gld_id}, {gld_name}. internal_id: {gld_internal_id}")
-        return gld_internal_id
+    def fetch_item_data(self, item_code: str):
+        code = item_code
+        if '@' in code:
+            code = code[:-2]
+        uri = f'https://gameinfo.albiononline.com/api/gameinfo/items/{code}/data'
+        res = requests.get(uri)
+        if res.status_code == 200:
+            return res.json()
+    def find_item(self, item_code: str) -> int:
+        item_id = super(Item, self).check_value(item_code)
+        if item_id is None:
+            item_data = self.fetch_item_data(item_code)
+            item_id = self.pg.insert_item(item_code, item_data)
+            super(Item, self).put_value(key=item_code, value=str(item_id))
+            log.info(f"ITEM: Inserted new item data: {item_code}, {item_data}. internal_id: {item_id}")
+        return item_id
 

@@ -1,4 +1,4 @@
-create table public.player
+create table europe.player
 (
     internal_id bigint NOT NULL primary key generated always AS IDENTITY,
     id varchar NOT NULL,
