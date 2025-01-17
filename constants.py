@@ -52,8 +52,8 @@ class ApiHelper:
     base_uri = 'https://gameinfo{self.prefix}.albiononline.com/api/gameinfo/'
     prefix_map = {Realm.europe: "-ams", Realm.america: "", Realm.asia: "-sgp"}
     uri_template_map = {
-        ApiType.BATTLES: ('battles?limit=50&offset={offset}', EntityType.battles),
-        ApiType.EVENTS: ('events?limit=50&offset={offset}', EntityType.event),
+        ApiType.BATTLES: ('battles?sort=recent&limit=50&offset={offset}', EntityType.battles),
+        ApiType.EVENTS: ('events?sort=recent&limit=50&offset={offset}', EntityType.event),
         ApiType.BATTLE_EVENTS: ('events/battle/{id}?limit=50&offset={offset}', EntityType.event),
         ApiType.GUILD_MEMBERS: ('guilds/{id}/members', EntityType.player),
         ApiType.PLAYER: ('players/{id}', EntityType.player),
