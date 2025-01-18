@@ -21,7 +21,7 @@ class TestAPI_Scraper(TestCase):
         self.assertIsInstance(j, list)
 
     def test_do_scrape(self):
-        self.test_obj.do_crape()
+        self.test_obj.do_scrape()
 
     def test_serializer(self):
         j = json.loads('{"key": "value", "key2": 2}')
@@ -33,4 +33,4 @@ class TestAPI_Scraper(TestCase):
     def setUpClass(cls):
         logging.basicConfig(level=logging.DEBUG)
         logging.getLogger().setLevel(logging.DEBUG)
-        cls.test_obj = API_Scraper(server=Realm.europe, api_type=ApiType.BATTLE_EVENTS)
+        cls.test_obj = API_Scraper(server=Realm.europe, api_type=ApiType.EVENTS)

@@ -6,9 +6,21 @@ import logging
 log = logging.getLogger(LOGGER_NAME)
 
 class RedisCache:
+    entity_db_map = {
+        EntityType.guild: 1,
+        EntityType.player: 2,
+        EntityType.battles: 3,
+        EntityType.event: 4,
+        EntityType.test:  5,
+        EntityType.item: 9
+    }
+
     def __init_redis__(self, realm: Realm, cache_type: EntityType):
         log.info("REDIS: init started")
         MAX_BATCH_SIZE = 100000
+        db_num = self.entity_db_map.get(cache_type)
+        if db_num is None:
+            raise Exception(f'Non-cached entity type requested: {cache_type.name}')
         self.__redis_db_number = realm * 10 + cache_type
         pool = redis.ConnectionPool(host='redis.lan', port=6379, db=self.__redis_db_number)
         self.__redis = redis.Redis(connection_pool=pool)

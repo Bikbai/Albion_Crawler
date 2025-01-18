@@ -41,6 +41,7 @@ class ApiType(IntEnum):
     EVENT = 8
     GUILD = 9
 
+
 EntityKeys = {
     EntityType.guild: "Id",
     EntityType.player: "Id",
@@ -66,7 +67,7 @@ class ApiHelper:
 
     def __init__(self, realm: Realm):
         self.prefix = self.prefix_map.get(realm)
-        self.current = realm
+        self.__realm = realm
 
     def apitype4api(self, api: ApiType) -> EntityType:
         return self.uri_template_map.get(api)[1]
@@ -78,3 +79,6 @@ class ApiHelper:
         template = self.base_uri + self.uri_template_map[type][0]
         retval = eval(f'f"""{template}"""')
         return retval
+
+    def build_topic_name(self, entity: EntityType):
+        return f'{entity.name}-{self.__realm.name}'

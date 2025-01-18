@@ -36,8 +36,38 @@ class TX_Scope(Enum):
     TX_INTERNAL_COMMIT = 1,
     TX_EXTERNAL = 2
 
+topic_suffix_map = {
+    EntityType.guild: 'guild',
+    EntityType.player: 'player',
+    EntityType.battles: 'battles',
+    EntityType.event: 'event',
+    EntityType.test:  'test',
+    EntityType.battlebatch: 'battlebatch',
+    EntityType.eventbatch: 'battlebatch',
+    EntityType.item: 'item'
+}
 
-class KafkaProducer:
+class Topic:
+    topic_suffix_map = {
+        EntityType.guild: 'guild',
+        EntityType.player: 'player',
+        EntityType.battles: 'battles',
+        EntityType.event: 'event',
+        EntityType.test: 'test',
+        EntityType.battlebatch: 'battlebatch',
+        EntityType.eventbatch: 'battlebatch',
+        EntityType.item: 'item'
+    }
+    def get_topic_name(self, realm: Realm, entity: EntityType| str):
+        if isinstance(entity, EntityType):
+            suffix = topic_suffix_map.get(entity)
+            if suffix is None:
+                raise Exception(f'Requested topic for unknown entity {entity.name}')
+            return f'{realm.name}-{suffix}'
+        else:
+            return f'{realm.name}-{entity}'
+
+class KafkaProducer(Topic):
     def delivery_callback(self, err: KafkaError, msg: Message):
         if err:
             if err.code() == err._PURGE_QUEUE:
@@ -45,16 +75,16 @@ class KafkaProducer:
             else:
                 log.error(f'Message {msg.key()} delivery failed to topic {msg.topic()}')
         else:
-            log.debug('%% Message delivered to %s [%d] @ %d\n' %
-                             (msg.topic(), msg.partition(), msg.offset()))
+            log.debug(f'Message delivered to {msg.topic()}, pt: {msg.partition()}, offs: @ {msg.offset()}\n')
 
-    def __init__(self, realm: Realm, entity: EntityType):
+    def __init__(self, realm: Realm, topic: EntityType| str):
         message_id = uuid.uuid4()
         self.partition_id = 0
         producer_config.update({'transactional.id': f'tx-{int(uuid.uuid4())}'})
         self.__producer = Producer(producer_config)
         self.__producer.init_transactions()
-        self.__topic = f'{entity.name}-{realm.name}'
+        self.__topic = super(KafkaProducer, self).get_topic_name(realm, topic)
+        #self.__topic = f'{entity.name}-{realm.name}'
         self.__max_partitions = 1
         #log.info(f"Kafka producer init started, generating test message with {message_id}")
         #tmp_consumer = Consumer(consumer_config)
@@ -85,7 +115,7 @@ class KafkaProducer:
     def info(self):
         return f'topic: {self.__topic}'
 
-    @timer_decorator(logger=log)
+    #@timer_decorator(logger=log)
     def send_message(self, message, key, tx_scope: TX_Scope = TX_Scope.TX_INTERNAL_ROLLBACK):
         if isinstance(message, dict):
             payload = json.dumps(message).encode('utf-8')
@@ -110,11 +140,11 @@ class KafkaProducer:
         self.__producer.flush()
 
 
-class KafkaConsumer:
-    def __init__(self, realm: Realm, entity: EntityType):
+class KafkaConsumer(Topic):
+    def __init__(self, realm: Realm, topic: EntityType | str):
         log.info("Kafka consumer init started")
         self.__consumer = Consumer(consumer_config)
-        self.__topic = f'{entity.name}-{realm.name}'
+        self.__topic = super(KafkaConsumer, self).get_topic_name(realm, topic)
         self.__consumer.subscribe([self.__topic])
         self.__tp = TopicPartition(topic=self.__topic)
         self.__consumer.memberid()
@@ -127,8 +157,8 @@ class KafkaConsumer:
         self.__consumer.close()
 
     @timer_decorator(logger=log)
-    def get(self):
-        msg = self.__consumer.poll()
+    def get(self, timeout : int = None):
+        msg = self.__consumer.poll(timeout=timeout)
         if msg is None:
             return None
         if msg.error():

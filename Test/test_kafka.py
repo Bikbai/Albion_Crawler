@@ -10,12 +10,8 @@ log.setLevel(level=logging.DEBUG)
 class TestKafkaProducer(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.producer = KafkaProducer(realm=Realm.europe, entity=EntityType.test)
-        cls.consumer = KafkaConsumer(realm=Realm.europe, entity=EntityType.test)
-
-    def test_topic(self):
-        s = Topic(Realm.europe, EntityType.test)
-        self.assertEqual(str(s), 'test-europe')
+        cls.producer = KafkaProducer(realm=Realm.europe, topic=EntityType.test)
+        cls.consumer = KafkaConsumer(realm=Realm.europe, topic=EntityType.test)
 
     def test_send_consume(self):
         i = 0
@@ -41,14 +37,17 @@ class TestKafkaProducer(TestCase):
 
     def test_multiple_consume(self):
         i = 0
+        items = []
         while True:
             nj = self.consumer.get()
             if nj is None:
                 break
             self.consumer.commit()
             print(nj)
+            items.append(nj)
             i += 1
         print(i)
+        self.assertEqual(len(items), i)
 
     def test_gen_script(self):
         gen_topics()

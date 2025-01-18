@@ -32,4 +32,4 @@ if not args.apiType in api_names:
 scraper = s.API_Scraper(
     api_type=eval(f's.ApiType.{args.apiType}'),
     server=eval(f's.Realm.{args.server}'))
-scraper.do_crape()
+scraper.do_scrape()

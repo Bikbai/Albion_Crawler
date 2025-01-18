@@ -37,8 +37,8 @@ class BattleProcessor:
     def __init__(self, srv: Realm):
         pf_start = perf_counter_ns()
         log.info(f'Init connections')
-        self.consumer = KafkaConsumer(realm=srv, entity=EntityType.battles)
-        self.producer = KafkaProducer(realm=srv, entity=EntityType.battlebatch)
+        self.consumer = KafkaConsumer(realm=srv, topic=EntityType.battles)
+        self.producer = KafkaProducer(realm=srv, topic=EntityType.battlebatch)
         self.pg = PostgresDB()
         self.player_cache = Player(pg_db=self.pg, realm=srv)
         self.guild_cache = Guild(pg_db=self.pg, realm=srv)
