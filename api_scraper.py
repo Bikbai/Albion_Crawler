@@ -79,7 +79,7 @@ class API_Scraper:
         fail_sleep_duration_seconds = 10  # 10 seconds
         current_delay = base_sleep_duration_seconds
         iter_num = 0
-        while True:
+        with timer(logger=log, descriptor='Scrape job started'):
             pf_start = perf_counter_ns()
             iter_num += 1
             full_scrape = True
@@ -113,7 +113,7 @@ class API_Scraper:
                     log.error(ex, stack_info=True, exc_info=True)
             pf_end = perf_counter_ns()
             log.info(f'Iteration {iter_num} finished, it took {(pf_end-pf_start)/1000000} ms')
-            time.sleep(current_delay)
+            #time.sleep(current_delay)
 
     def scrape_endpoint(self, offset: int = 0, id: str = "", custom_uri: str | None = None) -> json:
         try:
