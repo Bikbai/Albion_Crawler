@@ -1,3 +1,4 @@
+import uuid
 from enum import IntEnum, StrEnum
 
 LOGGER_NAME = "API_SCRAPER"

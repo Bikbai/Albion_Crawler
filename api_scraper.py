@@ -1,3 +1,4 @@
+import datetime
 import json
 import time
 import logging
@@ -123,7 +124,8 @@ class API_Scraper:
                 uri = custom_uri
             log.info(f'querying uri: {uri}')
             pf_start = perf_counter_ns()
-            resp = rq.get(uri)
+            headers = {'id': f'{datetime.datetime.now()}'}
+            resp = rq.get(uri, headers=headers)
             pf_stop = perf_counter_ns()
             log.info(f'querying uri done, it took {(pf_stop - pf_start)/1000000} ms ')
             if resp.status_code == 200:
