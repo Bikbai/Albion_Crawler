@@ -54,15 +54,15 @@ class ApiHelper:
     base_uri = 'https://gameinfo{self.prefix}.albiononline.com/api/gameinfo/'
     prefix_map = {Realm.europe: "-ams", Realm.america: "", Realm.asia: "-sgp"}
     uri_template_map = {
-        ApiType.BATTLES: ('battles?sort=recent&limit=50&offset={offset}', EntityType.battles),
-        ApiType.EVENTS: ('events?sort=recent&limit=50&offset={offset}', EntityType.event),
-        ApiType.BATTLE_EVENTS: ('events/battle/{id}?limit=50&offset={offset}', EntityType.event),
-        ApiType.GUILD_MEMBERS: ('guilds/{id}/members', EntityType.player),
-        ApiType.PLAYER: ('players/{id}', EntityType.player),
-        ApiType.PLAYER_KILLS: ('players/{id}/kills', EntityType.event),
-        ApiType.PLAYER_DEATHS: ('players/{id}/deaths', EntityType.event),
-        ApiType.EVENT: ('events/{id}', EntityType.event),
-        ApiType.GUILD: ('guilds/{id}', EntityType.guild)
+        ApiType.BATTLES: ('battles?salt={salt}&sort=recent&limit=50&offset={offset}', EntityType.battles),
+        ApiType.EVENTS: ('events?salt={salt}&sort=recent&limit=50&offset={offset}', EntityType.event),
+        ApiType.BATTLE_EVENTS: ('events/battle/{id}?salt={salt}&limit=50&offset={offset}', EntityType.event),
+        ApiType.GUILD_MEMBERS: ('guilds/{id}/members?salt={salt}', EntityType.player),
+        ApiType.PLAYER: ('players/{id}?salt={salt}', EntityType.player),
+        ApiType.PLAYER_KILLS: ('players/{id}/kills?salt={salt}', EntityType.event),
+        ApiType.PLAYER_DEATHS: ('players/{id}/deaths?salt={salt}', EntityType.event),
+        ApiType.EVENT: ('events/{id}?salt={salt}', EntityType.event),
+        ApiType.GUILD: ('guilds/{id}?salt={salt}', EntityType.guild)
     }
     events_suffix = 'events?limit=50&offset='
 
@@ -77,6 +77,7 @@ class ApiHelper:
         # Эти параметры зашиты в строке шаблона f-string!
         offset = offset
         id = id
+        salt = f'{uuid.uuid4()}'
         template = self.base_uri + self.uri_template_map[type][0]
         retval = eval(f'f"""{template}"""')
         return retval
