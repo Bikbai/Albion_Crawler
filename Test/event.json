@@ -174,7 +174,32 @@
                 "Quality": 4,
                 "ActiveSpells": [],
                 "PassiveSpells": [],
-                "LegendarySoul": null
+                "LegendarySoul": {
+                    "id": "3a1ceead-9bef-48d3-241c-5b99bb84fd42",
+                    "subtype": 1,
+                    "era": 1,
+                    "name": null,
+                    "lastEquipped": "2025-01-14T20:59:16.999919900Z",
+                    "attunedPlayer": "d4a8a3f5-bbec-4951-9b06-37e5dfd26fe4",
+                    "attunedPlayerName": "Aksin",
+                    "attunement": 221531380,
+                    "attunementSpentSinceReset": 24640670,
+                    "attunementSpent": 24640670,
+                    "quality": 4,
+                    "craftedBy": "ValiBey",
+                    "traits": [
+                        {
+                            "roll": 0.3241346961138557,
+                            "pendingRolls": [],
+                            "pendingTraits": [],
+                            "value": 39.7072,
+                            "trait": "TRAIT_ITEM_POWER",
+                            "minvalue": 1.1999999,
+                            "maxvalue": 120
+                        }
+                    ],
+                    "PvPFameGained": 1259107824
+                }
             },
             "OffHand": {
                 "Type": "T5_OFF_TORCH",
@@ -323,15 +348,78 @@
                 "PassiveSpells": [],
                 "LegendarySoul": null
             },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
+            {
+                "Type": "T3_VANITY_CONSUMABLE_FIREWORKS_YELLOW_NONTRADABLE",
+                "Count": 3,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T4_SILVERBAG_NONTRADABLE",
+                "Count": 4,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T4_SKILLBOOK_NONTRADABLE",
+                "Count": 3,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T4_SKILLBOOK_STANDARD",
+                "Count": 1,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "TREASURE_KNOWLEDGE_RARITY3",
+                "Count": 2,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T6_RUNE",
+                "Count": 3,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T4_SOUL",
+                "Count": 4,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T4_RELIC",
+                "Count": 3,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
+            {
+                "Type": "T5_SOUL",
+                "Count": 2,
+                "Quality": 0,
+                "ActiveSpells": [],
+                "PassiveSpells": [],
+                "LegendarySoul": null
+            },
             null,
             null,
             null,

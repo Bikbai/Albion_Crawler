@@ -34,12 +34,24 @@ import json
 
 
 class EventProcessor:
+    eq_type_map = {
+        "MainHand":  0,
+        "OffHand":   1,
+        "Head":      2,
+        "Armor":     3,
+        "Shoes":     4,
+        "Bag":       5,
+        "Cape":      6,
+        "Mount":     7,
+        "Potion":    8,
+        "Food":      9
+    }
 
     def __init__(self, srv: Realm):
         pf_start = perf_counter_ns()
         log.info(f'Init connections')
-        self.consumer = KafkaConsumer(realm=srv, entity=EntityType.event)
-        self.producer = KafkaProducer(realm=srv, entity=EntityType.eventbatch)
+        self.consumer = KafkaConsumer(realm=srv, topic=EntityType.event)
+        self.producer = KafkaProducer(realm=srv, topic=EntityType.eventbatch)
         self.pg = PostgresDB(realm=srv)
         self.player_cache = Player(pg_db=self.pg, realm=srv)
         self.guild_cache = Guild(pg_db=self.pg, realm=srv)
@@ -53,8 +65,7 @@ class EventProcessor:
         ev = self.consumer.get()
         return ev
 
-    def process_inventory(self, inv: list) -> [json]:
-        stored_keys = ('Type', 'Count', 'Quality')
+    def process_inventory(self, inv: list, event_id: int) -> [json]:
         retval = []
         if len(inv) == 0:
             return retval
@@ -63,23 +74,42 @@ class EventProcessor:
             if item is None:
                 continue
             r_item = {}
-            for k, v in item.items():
-                if k in stored_keys:
-                    if k == 'Type':
-                        internal_id = self.item_cache.find_item(item.get('Type'))
-                        r_item.update({'id': internal_id})
-                    else:
-                        r_item.update({k: v})
+            type = item.get('Type')
+            count = item.get('Count')
+            quality = item.get('Quality')
+            legendary = item.get('LegendarySoul')
+            internal_id = self.item_cache.find_item(type, quality)
+            if legendary is not None:
+                self.pg.insert_legendary(event_id=event_id, kill_event=False, item_id=internal_id, data=legendary)
+            r_item.update({f'{internal_id}': count})
             retval.append(r_item)
         return retval
 
-    def process_equipment(self, data:json) -> [json]:
+    def process_equipment(self, data:json, kill_event: bool, event_id: int = 0) -> ([], [], []):
+        """
+        :param data: внутренний json элемента Equipment
+        :param event_id: ссылка на eventId для учёта легендарок
+        :return: кортеж колонок вид, тип итема, количество
+        """
         retval = []
         if len(data) == 0:
             return retval
+        spec = []
+        type = []
+        cnt = []
+        i_descr: json
         for i_type, i_descr in data.items():
-
-
+            if i_descr is None:
+                continue
+            item = self.item_cache.find_item(i_descr.get('Type'), i_descr.get('Quality'))
+            legend = i_descr.get('LegendarySoul')
+            if legend is not None:
+                self.pg.insert_legendary(item, legend, event_id, kill_event)
+            qty = i_descr.get('Count')
+            spec.append(i_type) # MainHand
+            type.append(item) # T5_2H_DUALSICKLE_UNDEAD@4.1 -> int
+            cnt.append(qty) # 1
+        return (spec, type, cnt)
 
     def process_one(self, data: json) -> (ScrapeResult, json):
         evt = {}
@@ -87,6 +117,7 @@ class EventProcessor:
         group = {}
         # участники
         part = {}
+        event_id = data.get('EventId')
         for tag, val in data.items():
             if tag == 'Killer':
                 for tag, kval in val.items():
@@ -97,7 +128,10 @@ class EventProcessor:
                         id = self.player_cache.find_player(plr_id=kval, plr_name=val['Name'], gld_id=val['GuildId'])
                         evt.update({'killer_id': id})
                     elif tag == 'Equipment':
-                        pass
+                        kind, type, qty = self.process_equipment(data=kval, event_id=event_id, kill_event=True)
+                        evt.update({'killer_eq.kind': kind})
+                        evt.update({'killer_eq.type': type})
+                        evt.update({'killer_eq.qty': qty})
                     elif tag in stored:
                         evt.update({f'killer_{str.lower(tag)}': kval})
             elif tag == 'Victim':
@@ -109,9 +143,12 @@ class EventProcessor:
                         id = self.player_cache.find_player(plr_id=kval, plr_name=val['Name'], gld_id=val['GuildId'])
                         evt.update({'victim_id': id})
                     elif tag == 'Equipment':
-                        pass
+                        kind, type, qty = self.process_equipment(data=kval, event_id=event_id, kill_event=False)
+                        evt.update({'victim_eq.kind': kind})
+                        evt.update({'victim_eq.type': type})
+                        evt.update({'victim_eq.qty': qty})
                     elif tag == 'Inventory':
-                        evt.update({'victim_inventory': self.process_inventory(kval)})
+                        evt.update({'victim_inventory': self.process_inventory(kval, event_id=event_id)})
                     elif tag in stored:
                         evt.update({f'victim_{str.lower(tag)}': kval})
             elif tag == 'Participants':
@@ -124,6 +161,16 @@ class EventProcessor:
                 evt.update({str.lower(tag): val})
         return ScrapeResult.SUCCESS, evt
 
+    def write_one(self, data: json):
+        self.producer.send_message(message=data, key=data.get('EventId'), tx_scope=TX_Scope.TX_INTERNAL_COMMIT)
+
     def process_loop(self):
-        ev = self.fetch_one()
-        res = self.process_one(ev)
+        i = 1
+        while True:
+            with timer(logger=log, descriptor=f"{i}:process_loop:fetch_one: "):
+                ev = self.fetch_one()
+            with timer(logger=log, descriptor=f"{i}:process_loop:process_one: "):
+                res = self.process_one(ev)
+            with timer(logger=log, descriptor=f"{i}:process_loop:write_one: "):
+                self.write_one(res[1])
+            i += 1

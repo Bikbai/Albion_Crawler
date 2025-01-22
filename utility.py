@@ -59,7 +59,7 @@ def setup_logger(level=logging.INFO):
         syslog_handler.setFormatter(formatter)
         handlers.append(syslog_handler)
     else:
-        file_handler = logging.FileHandler(f"./logs/{LOGGER_NAME}.log")
+        file_handler = logging.FileHandler(f"./logs/{LOGGER_NAME}.log", encoding="utf-8")
         file_handler.setFormatter(formatter)
         handlers.append(file_handler)
     # Create formatters and add them to handlers

@@ -18,6 +18,17 @@ class PostgresDB:
         self.realm = realm
         self.conn = psycopg.connect(f"postgresql://postgres@dbserver.lan/albion")
 
+    def insert_legendary(self, item_id: int, data: json, event_id: int, kill_event: bool):
+        if event_id == 0:
+            log.error(f'insert_legendary: event_id= 0, item_data: {data}')
+            return
+        cur: cursor
+        with self.conn.cursor() as cur:
+            sql = f"\
+insert into {self.realm.name}.legendary (item_id, data, event_id, id, kill_event) values (%s, %s, %s, %s, %s)"
+            cur.execute(sql, (item_id, Json(data), event_id, data.get('id'), kill_event), prepare=True)
+            self.conn.commit()
+
     def insert_item(self, item_code: str, json_data: json) -> int | None:
         cur: cursor
         with self.conn.cursor() as cur:
@@ -30,6 +41,7 @@ returning internal_id"
             row = cur.fetchone()
             self.conn.commit()
             if row is None:
+                log.error(f"INSERT_ITEM: Item {item_code} not found in {self.realm.name}.item table!")
                 return None
         return row[0]
 

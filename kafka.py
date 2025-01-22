@@ -43,7 +43,7 @@ topic_suffix_map = {
     EntityType.event: 'event',
     EntityType.test:  'test',
     EntityType.battlebatch: 'battlebatch',
-    EntityType.eventbatch: 'battlebatch',
+    EntityType.eventbatch: 'eventbatch',
     EntityType.item: 'item'
 }
 
@@ -157,7 +157,7 @@ class KafkaConsumer(Topic):
         self.__consumer.close()
 
     @timer_decorator(logger=log)
-    def get(self, timeout : int = None):
+    def get(self, timeout: int = -1):
         msg = self.__consumer.poll(timeout=timeout)
         if msg is None:
             return None
