@@ -85,7 +85,7 @@ class KafkaProducer(Topic):
         self.__producer.init_transactions()
         self.__topic = super(KafkaProducer, self).get_topic_name(realm, topic)
         #self.__topic = f'{entity.name}-{realm.name}'
-        self.__max_partitions = 1
+        self.__max_partitions = 10
         #log.info(f"Kafka producer init started, generating test message with {message_id}")
         #tmp_consumer = Consumer(consumer_config)
         #tm: TopicMetadata = tmp_consumer.list_topics(topic=self.__topic).topics.get(self.__topic)
