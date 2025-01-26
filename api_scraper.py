@@ -95,17 +95,18 @@ class API_Scraper:
                 try:
                     self.kafka.begin_tran()
                     # вначале пишем в кафку, если успешно - пишем в редис
-                    for row in data:
-                        message = row[0]
-                        key = row[1]
-                        with timer(logger=log, descriptor=f"do_scrape: kafka write"):
+                    with timer(logger=log, descriptor=f"do_scrape: kafka write"):
+                        for row in data:
+                            message = row[0]
+                            key = row[1]
                             self.kafka.send_message(
                                 message=message,
                                 key=key,
                                 tx_scope=TX_Scope.TX_EXTERNAL)
-                    for row in data:
-                        key = row[1]
-                        self.cache.put_value(key)
+                    with timer(logger=log, descriptor=f"do_scrape: redis write"):
+                        for row in data:
+                            key = row[1]
+                            self.cache.put_value(key)
                     self.kafka.commit_tran()
                     log.info(f"Written {len(data)} rows to kafka {self.kafka.info()}.")
                 except Exception as ex:
