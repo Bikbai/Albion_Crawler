@@ -33,4 +33,4 @@ jobs:
         push: true
         file: ./Docker/scrape-battles.dockerfile
         tags: abome40k/albion-scraper:battles
-        buildArgs: VERSION=${{github.sha}}
+        buildArgs: VERSION= ${{ github.head_ref }}.${{ github.sha }}
