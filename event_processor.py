@@ -28,6 +28,11 @@ stored = ('numberOfParticipants',
           'KillFame'
           )
 
+pt_stored = ('AverageItemPower',
+          'DamageDone',
+          'SupportHealingDone',
+          )
+
 import datetime
 from dataclasses import dataclass
 import json
@@ -126,7 +131,7 @@ class EventProcessor:
                     pt.update({'eq.kind': kind})
                     pt.update({'eq.type': type})
                     pt.update({'eq.qty': qty})
-                elif tag in stored:
+                elif tag in pt_stored:
                     pt.update({f'{str.lower(tag)}': kval})
             if participant_mode:
                 data.update({pt.get("id"): pt})

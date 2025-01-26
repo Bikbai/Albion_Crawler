@@ -4,7 +4,7 @@ metadata:
   name: scrape
 spec:
   schedule: "*/5 * * * *"
-  concurrencyPolicy: Replace
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       backoffLimit: 0

@@ -37,6 +37,8 @@ class API_Scraper:
         self.full_scrape = full
         skipped_count = 0
         while offset < 1001:
+            records_prepared = 0
+            skipped_count = 0
             res = self.scrape_endpoint(offset, id)
             if res is None:
                 # error logged earlier
@@ -55,8 +57,6 @@ class API_Scraper:
                     break
             else:
                 #write data to kafka
-                records_prepared = 0
-                skipped_count = 0
                 for json_item in res:
                     id = json_item.get(EntityKeys.get(self.entityType))
                     if self.cache.check_value(id) is not None:
@@ -69,6 +69,9 @@ class API_Scraper:
                     records_prepared += 1
                 log.info(
                     f'skipped {skipped_count} messages, prepared {records_prepared} messages.')
+            if records_prepared == 0:
+                log.info(f"Offset {offset} returns no data, breaking loop.")
+                return ScrapeResult.SUCCESS, returning_data
             offset += 50
         if skipped_count == len(returning_data):
             if len(returning_data) > 0:
@@ -123,12 +126,9 @@ class API_Scraper:
                 uri = self.helper.get_uri(self.apiType, offset, id)
             else:
                 uri = custom_uri
-            log.info(f'querying uri: {uri}')
-            pf_start = perf_counter_ns()
-            headers = {'id': f'{datetime.datetime.now()}'}
-            resp = rq.get(uri, headers=headers)
-            pf_stop = perf_counter_ns()
-            log.info(f'querying uri done, it took {(pf_stop - pf_start)/1000000} ms ')
+            with timer(logger=log, descriptor=f'querying uri: {uri}'):
+                headers = {'id': f'{datetime.datetime.now()}'}
+                resp = rq.get(uri, headers=headers)
             if resp.status_code == 200:
                 js = resp.json()
                 return js
