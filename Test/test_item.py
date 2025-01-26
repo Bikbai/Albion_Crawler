@@ -31,3 +31,7 @@ class TestItem(TestCase):
         log.info(f'item_id: {x}')
         self.assertNotEqual(0, x)
 
+    def test_db(self):
+        i = self.item.internal_test()
+        self.assertNotEqual(0, i)
+

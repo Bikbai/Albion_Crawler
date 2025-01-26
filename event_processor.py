@@ -111,6 +111,29 @@ class EventProcessor:
             cnt.append(qty) # 1
         return (spec, type, cnt)
 
+    def parse_participants(self, j: json, event_id: int, data: json, participant_mode: bool = True) -> {}:
+        for participant in j:
+            pt = {}
+            for tag, kval in participant.items():
+                if tag == 'GuildId':
+                    id = self.guild_cache.find_guild(gld_name=participant['Name'], gld_id=kval)
+                    pt.update({'guild_id': id})
+                elif tag == 'Id':
+                    id = self.player_cache.find_player(plr_id=kval, plr_name=participant['Name'], gld_id=participant['GuildId'])
+                    pt.update({'id': id})
+                elif tag == 'Equipment':
+                    kind, type, qty = self.process_equipment(data=kval, event_id=event_id, kill_event=True)
+                    pt.update({'eq.kind': kind})
+                    pt.update({'eq.type': type})
+                    pt.update({'eq.qty': qty})
+                elif tag in stored:
+                    pt.update({f'{str.lower(tag)}': kval})
+            if participant_mode:
+                data.update({pt.get("id"): pt})
+            else:
+                if data.get(pt.get("id")) is None:
+                    data.update({pt.get("id"): pt})
+        return data
     def process_one(self, data: json) -> (ScrapeResult, json):
         evt = {}
         # состав всей группы
@@ -119,6 +142,10 @@ class EventProcessor:
         part = {}
         event_id = data.get('EventId')
         for tag, val in data.items():
+            if tag == 'Participants':
+                part = self.parse_participants(val, event_id, part, True)
+            if tag == 'GroupMembers':
+                part = self.parse_participants(val, event_id, part, False)
             if tag == 'Killer':
                 for tag, kval in val.items():
                     if tag == 'GuildId':
@@ -151,14 +178,11 @@ class EventProcessor:
                         evt.update({'victim_inventory': self.process_inventory(kval, event_id=event_id)})
                     elif tag in stored:
                         evt.update({f'victim_{str.lower(tag)}': kval})
-            elif tag == 'Participants':
-                pass
-            elif tag == 'GroupMembers':
-                pass
             elif tag == 'BattleId':
                 pass
             elif tag in stored:
                 evt.update({str.lower(tag): val})
+        evt.update({"Group": part})
         return ScrapeResult.SUCCESS, evt
 
     def write_one(self, data: json):

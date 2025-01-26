@@ -24,3 +24,7 @@ class Player(RedisCache):
             log.info(f"inserted dummy new player record: {plr_id}, {plr_name}. internal_id: {plr_internal_id}")
         return plr_internal_id
 
+    def do_reload(self):
+        result = self.pg.get_cached_dict(entity=EntityType.player)
+        self.reload_from_db(result)
+        return result

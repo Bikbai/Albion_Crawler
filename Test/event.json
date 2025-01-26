@@ -1243,6 +1243,382 @@
                 "FarmingFame": 0,
                 "Timestamp": null
             }
+        },
+        {
+            "AverageItemPower": 0,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T5_2H_HAMMER_AVALON@1",
+                    "Count": 1,
+                    "Quality": 3,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": null,
+                "Head": null,
+                "Armor": null,
+                "Shoes": null,
+                "Bag": null,
+                "Cape": null,
+                "Mount": null,
+                "Potion": null,
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "Podo",
+            "Id": "niaymjzGRvGN92nOsMP1rg",
+            "GuildName": "Winx Club",
+            "GuildId": "m06o5TpzTdWDvuTyjndemg",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_AJ_EXPLORATION_01",
+            "AvatarRing": "AVATARRING_AJ_GUILD_01",
+            "DeathFame": 0,
+            "KillFame": 23733,
+            "FameRatio": 237330,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            }
+        },
+        {
+            "AverageItemPower": 0,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T7_MAIN_HOLYSTAFF_AVALON@1",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": null,
+                "Head": null,
+                "Armor": null,
+                "Shoes": null,
+                "Bag": null,
+                "Cape": null,
+                "Mount": null,
+                "Potion": null,
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "MakeUsDream",
+            "Id": "S23dYb6HR4C5dI6y4bUziA",
+            "GuildName": "Winx Club",
+            "GuildId": "m06o5TpzTdWDvuTyjndemg",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_AJ_GUILD_01",
+            "AvatarRing": "AVATARRING_ADC_JAN2019",
+            "DeathFame": 0,
+            "KillFame": 23733,
+            "FameRatio": 237330,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            }
+        },
+        {
+            "AverageItemPower": 0,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T5_2H_ARCANESTAFF_HELL@1",
+                    "Count": 1,
+                    "Quality": 3,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": null,
+                "Head": null,
+                "Armor": null,
+                "Shoes": null,
+                "Bag": null,
+                "Cape": null,
+                "Mount": null,
+                "Potion": null,
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "xkraltr1",
+            "Id": "ihuNwJLhQvSmpNW70rFgjg",
+            "GuildName": "Winx Club",
+            "GuildId": "m06o5TpzTdWDvuTyjndemg",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_ANNIVERSARY_2024",
+            "AvatarRing": "AVATARRING_ANNIVERSARY_2024",
+            "DeathFame": 0,
+            "KillFame": 23733,
+            "FameRatio": 237330,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            }
+        },
+        {
+            "AverageItemPower": 0,
+            "Equipment": {
+                "MainHand": {
+                    "Type": "T6_2H_FIRESTAFF_HELL@1",
+                    "Count": 1,
+                    "Quality": 4,
+                    "ActiveSpells": [],
+                    "PassiveSpells": [],
+                    "LegendarySoul": null
+                },
+                "OffHand": null,
+                "Head": null,
+                "Armor": null,
+                "Shoes": null,
+                "Bag": null,
+                "Cape": null,
+                "Mount": null,
+                "Potion": null,
+                "Food": null
+            },
+            "Inventory": [],
+            "Name": "IREDI",
+            "Id": "rUItAIW_QLqoOdk_nW1AEA",
+            "GuildName": "Winx Club",
+            "GuildId": "m06o5TpzTdWDvuTyjndemg",
+            "AllianceName": "",
+            "AllianceId": "",
+            "AllianceTag": "",
+            "Avatar": "AVATAR_AJ_EXPLORATION_01",
+            "AvatarRing": "AVATARRING_AJ_GUILD_01",
+            "DeathFame": 0,
+            "KillFame": 23733,
+            "FameRatio": 237330,
+            "LifetimeStatistics": {
+                "PvE": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0,
+                    "Hellgate": 0,
+                    "CorruptedDungeon": 0,
+                    "Mists": 0
+                },
+                "Gathering": {
+                    "Fiber": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Hide": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Ore": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Rock": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "Wood": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    },
+                    "All": {
+                        "Total": 0,
+                        "Royal": 0,
+                        "Outlands": 0,
+                        "Avalon": 0
+                    }
+                },
+                "Crafting": {
+                    "Total": 0,
+                    "Royal": 0,
+                    "Outlands": 0,
+                    "Avalon": 0
+                },
+                "CrystalLeague": 0,
+                "FishingFame": 0,
+                "FarmingFame": 0,
+                "Timestamp": null
+            }
         }
     ],
     "GvGMatch": null,

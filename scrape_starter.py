@@ -1,5 +1,6 @@
 import api_scraper as s
 import logging
+from argparse import Namespace
 
 # Configure the root logger minimally or not at all
 from utility import setup_logger
@@ -19,6 +20,7 @@ parser.add_argument("-apitype", help="type of API", type=str, dest='apiType')
 parser.add_argument("-server", help="server to scrape", type=str, dest='server')
 
 args = parser.parse_args()
+log.info(f"args: {args}")
 snames = [el.name for el in s.Realm]
 if not args.server in snames:
     log.error(f"Parameter -server value missing. Pass one of server value:  {snames}")

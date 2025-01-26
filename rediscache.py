@@ -15,6 +15,9 @@ class RedisCache:
         EntityType.item: 9
     }
 
+    def __del__(self):
+        self.__redis.close()
+
     def __init_redis__(self, realm: Realm, cache_type: EntityType):
         log.info("REDIS: init started")
         MAX_BATCH_SIZE = 100000
@@ -41,6 +44,22 @@ class RedisCache:
         if retval is None:
             return retval
         return retval.decode('UTF-8')
+
+    def internal_test(self):
+        i = 0
+        cursor = '0'
+        data = {}
+        while cursor != 0:
+            cursor, keys = self.__redis.scan(cursor=cursor, count=1000000)
+            values = self.__redis.mget(*keys)
+            values = [value for value in values if not value == None]
+            data.update(dict(zip(keys, values)))
+        for k, v in data.items():
+            if v is None:
+                log.error(f"Key {k} has none value!!")
+                i += 1
+        log.info(f"Internal_test done, bad keys count: {i}")
+        return i
 
     def reload_from_db(self, query_result: [[str, str]]):
         log.warning(f"REDIS: begin reload cache, DB number: {self.__redis_db_number}")
