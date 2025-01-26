@@ -1,6 +1,6 @@
 import api_scraper as s
 import logging
-from argparse import Namespace
+import os.path
 
 # Configure the root logger minimally or not at all
 from utility import setup_logger
@@ -11,7 +11,13 @@ logging.basicConfig(level=logging.WARNING)  # Optional: Minimal configuration fo
 
 log = setup_logger()
 
-log.info("Application started")
+version = ""
+fname = "version.txt"
+if os.path.isfile(fname):
+    with open(fname, 'r') as f:
+        version = f.readline()
+
+log.info(f"Application started. Version: {version}")
 
 import argparse
 
@@ -21,6 +27,7 @@ parser.add_argument("-server", help="server to scrape", type=str, dest='server')
 
 args = parser.parse_args()
 log.info(f"args: {args}")
+
 snames = [el.name for el in s.Realm]
 if not args.server in snames:
     log.error(f"Parameter -server value missing. Pass one of server value:  {snames}")
