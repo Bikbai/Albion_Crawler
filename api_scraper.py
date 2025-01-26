@@ -62,10 +62,10 @@ class API_Scraper:
                     if self.cache.check_value(id) is not None:
                         # log.info(f'battle {id} exists, skipping')
                         skipped_count += 1
-                        log.info(f"Checking EventId: {id}: exists")
+                        # log.info(f"Checking EventId: {id}: exists")
                         continue
                     returning_data.append([json.dumps(json_item), id])
-                    log.info(f"Checking EventId: {id}: new")
+                    # log.info(f"Checking EventId: {id}: new")
                     records_prepared += 1
                 log.info(
                     f'skipped {skipped_count} messages, prepared {records_prepared} messages.')
