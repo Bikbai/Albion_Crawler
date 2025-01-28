@@ -4,7 +4,7 @@ from battle_processor import BattleProcessor
 from constants import Realm
 from utility import setup_logger
 
-logging.basicConfig(level=logging.DEBUG)  # Optional: Minimal configuration for the root logger
+logging.basicConfig(level=logging.WARNING)  # Optional: Minimal configuration for the root logger
 
 # Create and configure a named logger
 log = setup_logger()
