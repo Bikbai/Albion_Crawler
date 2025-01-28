@@ -20,5 +20,7 @@ if not args.server in snames:
     log.error(f"Parameter -server value missing. Pass one of server value:  {snames}")
     exit(1)
 
-processor = BattleProcessor(eval(f'Realm.{args.server}'))
+realm = eval(f'Realm.{args.server}')
+log.info(f'started processing for server: {realm}, name: {realm.name}')
+processor = BattleProcessor(realm)
 processor.do_process()
