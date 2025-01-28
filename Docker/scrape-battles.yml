@@ -1,6 +1,0 @@
-services:
-  eu-battles:
-    image: abome40k/albion-scraper:scrape-battles
-    tty: true
-    stdin_open: true
-    command: python batle_starter.py -server europe

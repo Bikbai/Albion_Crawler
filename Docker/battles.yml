@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: battles
+  labels:
+    app: battles-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: battles-processor
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: battles-processor
+    spec:
+      containers:
+      - name: battlle-eu
+        image: abome40k/albion-scraper:battles
+        imagePullPolicy: Always
+        command:  ["python"]
+        args:
+          - battle_starter.py
+          - -server
+          - europe
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      - name: battlle-am
+        image: abome40k/albion-scraper:battles
+        imagePullPolicy: Always
+        command:  ["python"]
+        args:
+          - battle_starter.py
+          - -server
+          - america
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      - name: battlle-as
+        image: abome40k/albion-scraper:battles
+        imagePullPolicy: Always
+        command:  ["python"]
+        args:
+          - battle_starter.py
+          - -server
+          - asia
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

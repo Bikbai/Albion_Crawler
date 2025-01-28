@@ -39,7 +39,7 @@ class BattleProcessor:
         log.info(f'Init connections')
         self.consumer = KafkaConsumer(realm=srv, topic=EntityType.battles)
         self.producer = KafkaProducer(realm=srv, topic=EntityType.battlebatch)
-        self.pg = PostgresDB()
+        self.pg = PostgresDB(realm=srv)
         self.player_cache = Player(pg_db=self.pg, realm=srv)
         self.guild_cache = Guild(pg_db=self.pg, realm=srv)
         pf_end = perf_counter_ns()
@@ -96,7 +96,7 @@ class BattleProcessor:
                 with timer(logger=log, descriptor=f"{i}: do_process: convert"):
                     converted_battle = self.process_json(battle)
                 with timer(logger=log, descriptor=f"{i}: do_process: scrape"):
-                    self.scraper.paged_scrape(id=battle_id)
+                    self.scraper.do_scrape(id=battle_id)
                 with timer(logger=log, descriptor=f"{i}: do_process: write"):
                     self.producer.send_message(message=converted_battle, key=battle.get('id'), tx_scope=TX_Scope.TX_EXTERNAL)
                 i += 1

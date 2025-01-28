@@ -44,7 +44,7 @@ class API_Scraper:
             res = self.scrape_endpoint(offset, id)
             if len(res) == 0:
                 log.warning(f"Offset {offset} returns zero length response.")
-                continue
+                return returning_data
             else:
                 for json_item in res:
                     id = json_item.get(EntityKeys.get(self.entityType))
@@ -77,9 +77,9 @@ class API_Scraper:
                 returning_data.append(i)
         return returning_data
 
-    def do_scrape(self):
+    def do_scrape(self, id: str = ""):
         with timer(logger=log, descriptor='do_scrape: '):
-            data = self.paged_scrape()
+            data = self.paged_scrape(id)
             # были данные, сбрасываем таймер
             try:
                 self.kafka.begin_tran()

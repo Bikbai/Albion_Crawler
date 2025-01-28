@@ -55,7 +55,7 @@ class Topic:
         EntityType.event: 'event',
         EntityType.test: 'test',
         EntityType.battlebatch: 'battlebatch',
-        EntityType.eventbatch: 'battlebatch',
+        EntityType.eventbatch: 'eventbatch',
         EntityType.item: 'item'
     }
     def get_topic_name(self, realm: Realm, entity: EntityType| str):
@@ -182,7 +182,7 @@ def gen_topics():
         for r in Realm:
             str = f'/opt/kafka/bin/kafka-topics.sh \
 --create \
---topic {e.name}-{r.name} \
+--topic {r.name}-{e.name} \
 --bootstrap-server kafka.lan:9092 \
 --partitions {10}'
             print(str)
