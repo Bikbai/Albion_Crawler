@@ -96,7 +96,7 @@ class BattleProcessor:
                 with timer(logger=log, descriptor=f"{i}: do_process: convert"):
                     converted_battle = self.process_json(battle)
                 with timer(logger=log, descriptor=f"{i}: do_process: scrape"):
-                    self.scraper.paged_scrape(id=battle_id, full=True)
+                    self.scraper.paged_scrape(id=battle_id)
                 with timer(logger=log, descriptor=f"{i}: do_process: write"):
                     self.producer.send_message(message=converted_battle, key=battle.get('id'), tx_scope=TX_Scope.TX_EXTERNAL)
                 i += 1

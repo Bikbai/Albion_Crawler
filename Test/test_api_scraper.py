@@ -9,10 +9,17 @@ from constants import Realm, EntityType, ApiType, ScrapeResult, LOGGER_NAME
 from confluent_kafka.serialization import StringSerializer, StringDeserializer
 
 import logging
-log = logging.getLogger(LOGGER_NAME)
 
+from utility import setup_logger
+logging.basicConfig(level=logging.WARNING)  # Optional: Minimal configuration for the root logger
+log = setup_logger()
 
 class TestAPI_Scraper(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        logging.basicConfig(level=logging.DEBUG)
+        logging.getLogger().setLevel(logging.DEBUG)
+        cls.test_obj = API_Scraper(server=Realm.asia, api_type=ApiType.EVENTS)
     def test_scrape_endpoint(self):
         custom_uri = 'https://gameinfo-ams.albiononline.com/api/gameinfo/events?sort=recent&limit=1'
         j = self.test_obj.scrape_endpoint(custom_uri=custom_uri)
@@ -23,8 +30,7 @@ class TestAPI_Scraper(TestCase):
 
 
     def test_paged_scrape(self):
-        res, j = self.test_obj.paged_scrape()
-        self.assertEqual(res, ScrapeResult.SUCCESS)
+        j = self.test_obj.paged_scrape()
         self.assertEqual(len(j), 1050, "Returns unexpected count of rows")
         self.assertIsInstance(j, list)
 
@@ -40,10 +46,5 @@ class TestAPI_Scraper(TestCase):
         j = json.loads('{"key": "value", "key2": 2}')
         if isinstance(j, dict):
             print(json.dumps(j))
-        self.assertEqual(1,2)
+        self.assertEqual(1, 2)
 
-    @classmethod
-    def setUpClass(cls):
-        logging.basicConfig(level=logging.DEBUG)
-        logging.getLogger().setLevel(logging.DEBUG)
-        cls.test_obj = API_Scraper(server=Realm.europe, api_type=ApiType.EVENTS)
