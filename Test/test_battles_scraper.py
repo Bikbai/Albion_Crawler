@@ -5,9 +5,10 @@ from constants import Realm, EntityType, ApiType
 
 class TestAPI_Scraper(TestCase):
     def test_inner_scrape(self):
-        x = self.test_obj.scrape_endpoint(offset=10)
-        self.assertGreater(len(x), 0)
+        x = self.test_obj.paged_scrape(id='141209534')
+        y = self.test_obj.scrape_worker([0], id='141209534')
+        self.assertEqual(len(x), len(y))
 
     @classmethod
     def setUpClass(cls):
-        cls.test_obj = API_Scraper(server=Realm.asia, api_type=ApiType.EVENT)
+        cls.test_obj = API_Scraper(server=Realm.europe, api_type=ApiType.SINGLE_BATTLE)

@@ -32,7 +32,7 @@ class API_Scraper:
         self.full_scrape = False
 
 
-    def scrape_worker(self, offsets: [], id: int):
+    def scrape_worker(self, offsets: [], id: str):
         QUERY_ERROR_LIMIT = 100
         returning_data = []
         current_query_error_count = 0
@@ -45,16 +45,18 @@ class API_Scraper:
             if len(res) == 0:
                 log.warning(f"Offset {offset} returns zero length response.")
                 return returning_data
-            else:
-                for json_item in res:
-                    id = json_item.get(EntityKeys.get(self.entityType))
-                    if self.cache.check_value(id) is not None:
-                        skipped_count += 1
-                        continue
-                    returning_data.append([json.dumps(json_item), id])
-                    records_prepared += 1
-                log.info(
-                    f'skipped {skipped_count} messages, prepared {records_prepared} messages.')
+            # поддержка единичного JSON, не массива!
+            if isinstance(res, dict):
+                res = [res]
+            for json_item in res:
+                entity_id = json_item.get(EntityKeys.get(self.entityType))
+                if self.cache.check_value(id) is not None:
+                    skipped_count += 1
+                    continue
+                returning_data.append([json.dumps(json_item), entity_id])
+                records_prepared += 1
+            log.info(
+                f'skipped {skipped_count} messages, prepared {records_prepared} messages.')
             if records_prepared == 0:
                 log.info(f"Offset {offset} returns no data, breaking loop.")
                 return returning_data
@@ -71,16 +73,20 @@ class API_Scraper:
         with ThreadPoolExecutor(max_workers=4) as executor:
             results = list(executor.map(self.scrape_worker, offsets, repeat(id)))
 
-        from itertools import chain
         for r in results:
             for i in r:
                 returning_data.append(i)
         return returning_data
 
-    def do_scrape(self, id: str = ""):
+    def do_scrape(self, id: str = "", paged: bool = True):
         with timer(logger=log, descriptor='do_scrape: '):
-            data = self.paged_scrape(id)
+            if paged:
+                data = self.paged_scrape(id)
+            else:
+                data = self.scrape_worker([0], id)
             # были данные, сбрасываем таймер
+            if len(data) == 0:
+                return
             try:
                 self.kafka.begin_tran()
                 # вначале пишем в кафку, если успешно - пишем в редис
@@ -118,6 +124,9 @@ class API_Scraper:
                 if resp.status_code == 200:
                     js = resp.json()
                     return js
+                elif resp.status_code == 404:
+                    log.warning(f'queriyng {uri} returns {resp.status_code}')
+                    return {}
                 else:
                     log.error(f"queriyng {uri} returns {resp.status_code}")
                     time.sleep(1)

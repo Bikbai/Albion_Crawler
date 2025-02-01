@@ -63,7 +63,7 @@ class EventProcessor:
         self.item_cache = Item(pg_db=self.pg, realm=srv)
         pf_end = perf_counter_ns()
         log.info(f'Init connections done, took {(pf_end - pf_start) / 1000000} ms')
-        self.battle_scraper = API_Scraper(server=srv, api_type=ApiType.BATTLE_EVENTS)
+        self.battle_scraper = API_Scraper(server=srv, api_type=ApiType.SINGLE_BATTLE)
 
     @timer(logger=log, descriptor="EventProcessor: fetch_one")
     def fetch_one(self):
@@ -107,9 +107,9 @@ class EventProcessor:
             if i_descr is None:
                 continue
             item = self.item_cache.find_item(i_descr.get('Type'), i_descr.get('Quality'))
-            legend = i_descr.get('LegendarySoul')
-            if legend is not None:
-                self.pg.insert_legendary(item, legend, event_id, kill_event)
+            legend_json = i_descr.get('LegendarySoul')
+            if legend_json is not None:
+                self.pg.insert_legendary(item, legend_json, event_id=event_id, kill_event=kill_event)
             qty = i_descr.get('Count')
             spec.append(i_type) # MainHand
             type.append(item) # T5_2H_DUALSICKLE_UNDEAD@4.1 -> int
@@ -184,14 +184,17 @@ class EventProcessor:
                     elif tag in stored:
                         evt.update({f'victim_{str.lower(tag)}': kval})
             elif tag == 'BattleId':
-                pass
+                if val != "":
+                    self.battle_scraper.do_scrape(id=val, paged=False)
             elif tag in stored:
                 evt.update({str.lower(tag): val})
         evt.update({"Group": part})
         return ScrapeResult.SUCCESS, evt
 
     def write_one(self, data: json):
-        self.producer.send_message(message=data, key=data.get('EventId'), tx_scope=TX_Scope.TX_INTERNAL_COMMIT)
+        eventId = data.get('eventid')
+        self.producer.send_message(message=data, key=eventId, tx_scope=TX_Scope.TX_INTERNAL_COMMIT)
+        log.info(f'EventID: {eventId} processed')
 
     def process_loop(self):
         i = 1

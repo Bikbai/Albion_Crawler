@@ -40,7 +40,8 @@ class ApiType(IntEnum):
     PLAYER_KILLS = 6
     PLAYER_DEATHS = 7
     EVENT = 8
-    GUILD = 9
+    GUILD = 9,
+    SINGLE_BATTLE = 10
 
 
 EntityKeys = {
@@ -62,7 +63,8 @@ class ApiHelper:
         ApiType.PLAYER_KILLS: ('players/{id}/kills?salt={salt}', EntityType.event),
         ApiType.PLAYER_DEATHS: ('players/{id}/deaths?salt={salt}', EntityType.event),
         ApiType.EVENT: ('events/{id}?salt={salt}', EntityType.event),
-        ApiType.GUILD: ('guilds/{id}?salt={salt}', EntityType.guild)
+        ApiType.GUILD: ('guilds/{id}?salt={salt}', EntityType.guild),
+        ApiType.SINGLE_BATTLE: ('battles/{id}?salt={salt}', EntityType.battles),
     }
     events_suffix = 'events?limit=50&offset='
 
