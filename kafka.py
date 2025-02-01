@@ -3,7 +3,7 @@ import uuid
 from enum import Enum
 
 from confluent_kafka import Producer, Consumer, KafkaError, KafkaException, Message, TopicPartition
-from confluent_kafka.admin import TopicMetadata
+from confluent_kafka.admin import TopicMetadata, ClusterMetadata
 from confluent_kafka.serialization import StringSerializer, StringDeserializer
 from constants import Realm, EntityType, LOGGER_NAME
 from utility import timer_decorator
@@ -28,8 +28,11 @@ consumer_config = base_config.copy()
 consumer_config.update(
     {"group.id": "main.processor.v4",
      'auto.offset.reset': 'earliest',
-     'session.timeout.ms': 6000,
-     'enable.auto.offset.store': False}) #коммит руками
+     'session.timeout.ms': 10000,
+     'max.poll.interval.ms': 10000,
+     'enable.auto.offset.store': False #коммит руками
+     }
+)
 
 class TX_Scope(Enum):
     TX_INTERNAL_ROLLBACK = 0,
@@ -85,7 +88,9 @@ class KafkaProducer(Topic):
         self.__producer.init_transactions()
         self.__topic = super(KafkaProducer, self).get_topic_name(realm, topic)
         #self.__topic = f'{entity.name}-{realm.name}'
-        self.__max_partitions = 10
+        tmp_consumer = Consumer(consumer_config)
+        meta: ClusterMetadata = tmp_consumer.list_topics(topic=self.__topic)
+        self.__max_partitions = x = len(next(iter(meta.topics.values())).partitions)
         #log.info(f"Kafka producer init started, generating test message with {message_id}")
         #tmp_consumer = Consumer(consumer_config)
         #tm: TopicMetadata = tmp_consumer.list_topics(topic=self.__topic).topics.get(self.__topic)
