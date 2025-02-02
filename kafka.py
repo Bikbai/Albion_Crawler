@@ -1,4 +1,5 @@
 import json
+import time
 import uuid
 from enum import Enum
 
@@ -163,21 +164,27 @@ class KafkaConsumer(Topic):
 
     @timer_decorator(logger=log)
     def get(self, timeout: int = -1):
-        msg = self.__consumer.poll(timeout=timeout)
-        if msg is None:
-            return None
-        if msg.error():
-            if msg.error().code() == KafkaError._PARTITION_EOF:
-                log.error(f'{msg.topic()}: {msg.partition()} reached end at offset {msg.offset()}')
+        while True:
+            msg = self.__consumer.poll(timeout=timeout)
+            if msg is None:
                 return None
-            elif msg.error():
-                raise KafkaException(msg.error())
-        else:
-            self.__tp.offset = msg.offset()
-            self.__tp.partition = msg.partition()
-            j = json.loads(msg.value().decode('utf-8'))
-            self.__consumer.store_offsets(msg)
-            return j
+            if msg.error():
+                if msg.error().code() == KafkaError._PARTITION_EOF:
+                    log.error(f'{msg.topic()}: {msg.partition()} reached end at offset {msg.offset()}, sleeping for 1 sec')
+                    time.sleep(1)
+                    continue
+                elif msg.error().code() == KafkaError._MAX_POLL_EXCEEDED:
+                    log.error(f'{msg.topic()}: timeout reading topic, repeat')
+                    time.sleep(1)
+                    continue
+                elif msg.error():
+                    raise KafkaException(msg.error())
+            else:
+                self.__tp.offset = msg.offset()
+                self.__tp.partition = msg.partition()
+                j = json.loads(msg.value().decode('utf-8'))
+                self.__consumer.store_offsets(msg)
+                return j
 
     def commit(self):
         self.__consumer.commit(offsets=[self.__tp])
