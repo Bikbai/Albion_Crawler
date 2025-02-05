@@ -95,6 +95,7 @@ class EventProcessor:
         """
         :param data: внутренний json элемента Equipment
         :param event_id: ссылка на eventId для учёта легендарок
+        :param kill_event: признак смерть/убивство
         :return: кортеж колонок вид, тип итема, количество
         """
         retval = []
