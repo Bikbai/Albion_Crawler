@@ -107,9 +107,12 @@ class EventProcessor:
         for i_type, i_descr in data.items():
             if i_descr is None:
                 continue
-            item = self.item_cache.find_item(i_descr.get('Type'), i_descr.get('Quality'))
+            i_type = i_descr.get('Type')
+            i_quality = i_descr.get('Quality')
+            item = self.item_cache.find_item(i_type, i_quality)
             legend_json = i_descr.get('LegendarySoul')
             if legend_json is not None:
+                log.info(f'inserting legendary: item_id: {item}, eventId: {event_id},  kill_event: {kill_event}, code: {i_type}.{i_quality}')
                 self.pg.insert_legendary(item, legend_json, event_id=event_id, kill_event=kill_event)
             qty = i_descr.get('Count')
             spec.append(i_type) # MainHand
