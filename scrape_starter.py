@@ -3,7 +3,7 @@ import logging
 import os.path
 
 # Configure the root logger minimally or not at all
-from utility import setup_logger
+from utility import setup_logger, print_startup_message
 
 logging.basicConfig(level=logging.WARNING)  # Optional: Minimal configuration for the root logger
 
@@ -11,13 +11,7 @@ logging.basicConfig(level=logging.WARNING)  # Optional: Minimal configuration fo
 
 log = setup_logger()
 
-version = ""
-fname = "version.txt"
-if os.path.isfile(fname):
-    with open(fname, 'r') as f:
-        version = f.readline()
-
-log.info(f"Application started. Version: {version}")
+print_startup_message(log)
 
 import argparse
 

@@ -2,13 +2,14 @@ import logging
 
 from battle_processor import BattleProcessor
 from constants import Realm
-from utility import setup_logger
+from utility import setup_logger, print_startup_message
 
 logging.basicConfig(level=logging.WARNING)  # Optional: Minimal configuration for the root logger
 
 # Create and configure a named logger
 log = setup_logger()
-log.info("Application started")
+
+print_startup_message(log)
 
 import argparse
 parser = argparse.ArgumentParser()

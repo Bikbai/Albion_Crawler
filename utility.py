@@ -9,6 +9,14 @@ import json
 from constants import LOGGER_NAME
 
 
+def print_startup_message(logger):
+    version = ""
+    fname = "version.txt"
+    if os.path.isfile(fname):
+        with open(fname, 'r') as f:
+            version = f.readline()
+    logger.info(f"Application started. Version: {version}")
+
 # я ни хрена не понимаю как это работает, но оно работает
 def timer_decorator(logger):
     def decorator(func):
