@@ -85,6 +85,7 @@ class EventProcessor:
             legendary = item.get('LegendarySoul')
             internal_id = self.item_cache.find_item(type, quality)
             if legendary is not None:
+                log.info(f'Inserting legendary data: {type}.{quality}: {internal_id}')
                 self.pg.insert_legendary(event_id=event_id, kill_event=False, item_id=internal_id, data=legendary)
             r_item.update({f'{internal_id}': count})
             retval.append(r_item)

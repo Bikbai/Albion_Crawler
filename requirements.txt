@@ -5,3 +5,4 @@ setuptools~=75.6.0
 clickhouse_connect
 confluent_kafka
 httpx
+python-dateutil
