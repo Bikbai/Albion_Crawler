@@ -209,6 +209,8 @@ class EventProcessor:
         while True:
             with timer(logger=log, descriptor=f"{i}:process_loop:fetch_one: "):
                 ev = self.fetch_one()
+                if isinstance(ev, str):
+                    ev = json.loads(ev)
             with timer(logger=log, descriptor=f"{i}:process_loop:process_one: "):
                 res = self.process_one(ev)
             with timer(logger=log, descriptor=f"{i}:process_loop:write_one: "):
