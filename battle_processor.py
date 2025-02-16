@@ -4,6 +4,7 @@ import logging
 from typing import List, Union
 from player import Player
 from guild import  Guild
+from rabbit import RabbitMQClient
 from utility import timer_decorator, timer
 from api_scraper import API_Scraper
 
@@ -37,8 +38,10 @@ class BattleProcessor:
     def __init__(self, srv: Realm):
         pf_start = perf_counter_ns()
         log.info(f'Init connections')
-        self.consumer = KafkaConsumer(realm=srv, topic=EntityType.battles)
-        self.producer = KafkaProducer(realm=srv, topic=EntityType.battlebatch)
+        #self.consumer = KafkaConsumer(realm=srv, topic=EntityType.battles)
+        #self.producer = KafkaProducer(realm=srv, topic=EntityType.battlebatch)
+        self.source = RabbitMQClient(srv, EntityType.battles)
+        self.target = RabbitMQClient(srv, EntityType.battlebatch)
         self.pg = PostgresDB(realm=srv)
         self.player_cache = Player(pg_db=self.pg, realm=srv)
         self.guild_cache = Guild(pg_db=self.pg, realm=srv)
@@ -78,17 +81,18 @@ class BattleProcessor:
 
     @timer_decorator(logger=log)
     def process_single(self):
-        battle = self.consumer.get()
+        battle = json.loads(self.source.get_one_message(auto_ack=False))
         return self.process_json(battle)
 
     def do_process(self):
         i = 0
         while(True):
             with timer(logger=log, descriptor=f"Main cycle {i}"):
-                log.info(f"Waiting for data from topic: {self.consumer.get_topic()}")
-                battle = self.consumer.get()
-                self.producer.begin_tran()
+                log.info(f"Waiting for data from topic: {self.source.queue_name}")
                 with timer(logger=log, descriptor=f"{i}: do_process: fetch"):
+                    battle = json.loads(self.source.get_one_message(auto_ack=False))
+                    if isinstance(battle, str):
+                        battle = json.loads(battle)
                     battle_id = battle.get('id')
                 if battle_id == "":
                     log.error(f"ERROR: Cannot fetch battle id {battle}")
@@ -98,7 +102,6 @@ class BattleProcessor:
                 with timer(logger=log, descriptor=f"{i}: do_process: scrape"):
                     self.scraper.do_scrape(id=battle_id)
                 with timer(logger=log, descriptor=f"{i}: do_process: write"):
-                    self.producer.send_message(message=converted_battle, key=battle.get('id'), tx_scope=TX_Scope.TX_EXTERNAL)
+                    self.target.send_message(message=converted_battle, headers={"id": battle_id})
                 i += 1
-                self.producer.commit_tran()
-                self.consumer.commit()
+                self.source.ack()

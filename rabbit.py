@@ -85,7 +85,7 @@ class RabbitMQClient(Topic):
             body=json.dumps(message).encode(encoding='UTF-8'),
             properties=pika.BasicProperties(delivery_mode=2, headers=headers)  # делаем сообщение устойчивым
         )
-        print(f" [x] Sent {message}")
+        #print(f" [x] Sent {message}")
 
     def receive_messages(self, callback, queue=None):
         """Получение сообщений из очереди"""
@@ -99,12 +99,11 @@ class RabbitMQClient(Topic):
                 data = json.loads(body)
                 callback(data)
             except Exception as e:
-                print(f"Error processing message: {e}")
+                log.error(f"Error processing message: {e}")
             finally:
                 ch.basic_ack(delivery_tag=method.delivery_tag)
 
         self.channel.basic_consume(queue=queue_to_use, on_message_callback=_callback)
-        print(' [*] Waiting for messages. To exit press CTRL+C')
         self.channel.start_consuming()
 
     def get_one_message(self, queue=None, auto_ack=True):
