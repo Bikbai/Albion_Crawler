@@ -63,7 +63,7 @@ class RabbitMQClient(Topic):
     def connect(self):
         """Установка соединения с RabbitMQ"""
         credentials = pika.PlainCredentials(self.username, self.password)
-        parameters = pika.ConnectionParameters(host=self.host, port=self.port, credentials=credentials)
+        parameters = pika.ConnectionParameters(host=self.host, port=self.port, credentials=credentials, heartbeat=10)
         self.connection = pika.BlockingConnection(parameters)
         self.channel = self.connection.channel()
         self.channel.queue_declare(queue=self.queue_name, durable=True)
