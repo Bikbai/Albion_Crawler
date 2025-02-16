@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bt-processor
+  namespace: asia
+  labels:
+    app: bt-processor
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: bt-processor
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: bt-processor
+    spec:
+      hostAliases:
+      - ip: "192.168.88.131"
+        hostnames:
+        - "dbserver.lan"
+      containers:
+      - name: as-bt-processor
+        image: abome40k/albion-scraper:battles
+        imagePullPolicy: Always
+        command:  ["python"]
+        args:
+          - battle_starter.py
+          - -server
+          - asia

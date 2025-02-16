@@ -41,8 +41,10 @@ returning internal_id"
             row = cur.fetchone()
             self.conn.commit()
             if row is None:
-                log.error(f"INSERT_ITEM: Item {item_code} not found in {self.realm.name}.item table!")
-                return None
+                retval = cur.execute(f"select internal_id from {self.realm.name}.player where code = (%s)", (item_code,)).fetchone()[0]
+                if retval is None:
+                    raise f'insert_item: item {item_code} not found'
+                return retval
         return row[0]
 
 
@@ -58,7 +60,7 @@ returning internal_id"
             row = cur.fetchone()
             self.conn.commit()
             if row is None:
-                return None
+                return cur.execute(f"select internal_id from {self.realm.name}.player where id = (%s)", (id, )).fetchone()[0]
         return row[0]
 
     def insert_dummy_guild(self,  id: str, name: str) -> int | None:
@@ -73,7 +75,7 @@ returning internal_id"
             row = cur.fetchone()
             self.conn.commit()
             if row is None:
-                return None
+                return cur.execute(f"select internal_id from {self.realm.name}.guild where id = (%s)", (id, )).fetchone()[0]
         return row[0]
 
     def get_cached_dict(self, entity: EntityType):
@@ -82,6 +84,6 @@ returning internal_id"
         cur: cursor
         with self.conn.cursor() as cur:
             sql = f"\
-select id, internal_id from {self.realm.name}.{table_name}"
+select code, internal_id from {self.realm.name}.{table_name}"
             cur.execute(sql)
             return cur.fetchall()

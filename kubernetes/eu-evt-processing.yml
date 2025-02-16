@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: evt-processor
+  namespace: euro
+  labels:
+    app: evt-processor
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: evt-processor
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: evt-processor
+    spec:
+      hostAliases:
+      - ip: "192.168.88.131"
+        hostnames:
+        - "dbserver.lan"
+      containers:
+      - name: eu-evt-processor
+        image: abome40k/albion-scraper:battles
+        imagePullPolicy: Always
+        command:  ["python"]
+        args:
+          - ev_processor_starter.py
+          - -server
+          - europe

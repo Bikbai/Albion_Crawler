@@ -6,11 +6,11 @@ from typing import List, Union
 from item import Item
 from player import Player
 from guild import  Guild
+from rabbit import RabbitMQClient
 from utility import timer_decorator, timer
 from api_scraper import API_Scraper
 
 from postgresdb import PostgresDB
-from rediscache import RedisCache
 from constants import Realm, ApiHelper, EntityType, ScrapeResult, ApiType, EntityKeys
 from kafka import KafkaConsumer, KafkaProducer, TX_Scope
 from time import perf_counter_ns
@@ -33,8 +33,6 @@ pt_stored = ('AverageItemPower',
           'SupportHealingDone',
           )
 
-import datetime
-from dataclasses import dataclass
 import json
 
 
@@ -55,8 +53,9 @@ class EventProcessor:
     def __init__(self, srv: Realm):
         pf_start = perf_counter_ns()
         log.info(f'Init connections')
-        self.consumer = KafkaConsumer(realm=srv, topic=EntityType.event)
-        self.producer = KafkaProducer(realm=srv, topic=EntityType.eventbatch)
+        self.source = RabbitMQClient(srv, EntityType.event)
+        self.target = RabbitMQClient(srv, EntityType.eventbatch)
+        #self.producer = KafkaProducer(realm=srv, topic=EntityType.eventbatch)
         self.pg = PostgresDB(realm=srv)
         self.player_cache = Player(pg_db=self.pg, realm=srv)
         self.guild_cache = Guild(pg_db=self.pg, realm=srv)
@@ -67,8 +66,11 @@ class EventProcessor:
 
     @timer(logger=log, descriptor="EventProcessor: fetch_one")
     def fetch_one(self):
-        ev = self.consumer.get()
-        return ev
+        msg = self.source.get_one_message(auto_ack=False)
+        if isinstance(msg, str):
+            return json.loads(msg)
+        elif isinstance(msg, dict):
+            return msg
 
     def process_inventory(self, inv: list, event_id: int) -> [json]:
         retval = []
@@ -198,7 +200,8 @@ class EventProcessor:
 
     def write_one(self, data: json):
         eventId = data.get('eventid')
-        self.producer.send_message(message=data, key=eventId, tx_scope=TX_Scope.TX_INTERNAL_COMMIT)
+        self.target.send_message(message=data, headers={"id": eventId})
+        #self.producer.send_message(message=data, key=eventId, tx_scope=TX_Scope.TX_INTERNAL_COMMIT)
         log.info(f'EventID: {eventId} processed')
 
     def process_loop(self):
@@ -210,4 +213,5 @@ class EventProcessor:
                 res = self.process_one(ev)
             with timer(logger=log, descriptor=f"{i}:process_loop:write_one: "):
                 self.write_one(res[1])
+            self.source.ack()
             i += 1

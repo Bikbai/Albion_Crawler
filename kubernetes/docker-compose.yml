@@ -1,0 +1,11 @@
+services:
+  eu-event:
+    image: abome40k/albion-scraper:battles
+    tty: true
+    stdin_open: true
+    command: python scrape_starter.py -server europe -apitype EVENTS
+  eu-battle:
+    image: abome40k/albion-scraper:battles
+    tty: true
+    stdin_open: true
+    command: python scrape_starter.py -server europe -apitype BATTLES

@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: am-scrape
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      ttlSecondsAfterFinished: 86400
+      activeDeadlineSeconds: 6000
+      template:
+        spec:
+          containers:
+          - name: events-am
+            image: abome40k/albion-scraper:battles
+            imagePullPolicy: Always
+            command:  ["python"]
+            args:
+              - scrape_starter.py
+              - -server
+              - america
+              - -apitype
+              - EVENTS
+          - name: battlle-eu
+            image: abome40k/albion-scraper:battles
+            imagePullPolicy: Always
+            command:  ["python"]
+            args:
+              - scrape_starter.py
+              - -server
+              - america
+              - -apitype
+              - BATTLES
+          restartPolicy: Never

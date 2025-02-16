@@ -27,10 +27,10 @@ producer_config.update(
 
 consumer_config = base_config.copy()
 consumer_config.update(
-    {"group.id": "main.processor.v4",
+    {
      'auto.offset.reset': 'earliest',
-     'session.timeout.ms': 10000,
-     'max.poll.interval.ms': 10000,
+     'session.timeout.ms': 600000,
+     'max.poll.interval.ms': 600000,
      'enable.auto.offset.store': False #коммит руками
      }
 )
@@ -81,10 +81,11 @@ class KafkaProducer(Topic):
         else:
             log.debug(f'Message delivered to {msg.topic()}, pt: {msg.partition()}, offs: @ {msg.offset()}\n')
 
-    def __init__(self, realm: Realm, topic: EntityType| str):
+    def __init__(self, realm: Realm, topic: EntityType | str, group_id: str = "main.processor.v4"):
         message_id = uuid.uuid4()
         self.partition_id = 0
         producer_config.update({'transactional.id': f'tx-{int(uuid.uuid4())}'})
+        producer_config.update({"group.id": group_id})
         self.__producer = Producer(producer_config)
         self.__producer.init_transactions()
         self.__topic = super(KafkaProducer, self).get_topic_name(realm, topic)
@@ -163,7 +164,26 @@ class KafkaConsumer(Topic):
         self.__consumer.close()
 
     @timer_decorator(logger=log)
-    def get(self, timeout: int = -1):
+    def consume(self, batch: int = 100000,  timeout: int = -1) -> list | None:
+        msgs = self.__consumer.consume(num_messages=batch, timeout=timeout)
+        retval = []
+        for msg in msgs:
+            if msg is None:
+                continue
+            if msg.error():
+                if msg.error().code() == KafkaError._PARTITION_EOF:
+                    log.info(f"End of partition reached {msg.topic()} [{msg.partition()}] at offset {msg.offset()}")
+                    break
+                elif msg.error():
+                    raise KafkaException(msg.error())
+            else:
+                j = json.loads(msg.value().decode('utf-8'))
+                retval.append(j)
+                self.__consumer.store_offsets(msg)
+        return retval
+
+    @timer_decorator(logger=log)
+    def get(self, timeout: int = -1,):
         while True:
             msg = self.__consumer.poll(timeout=timeout)
             if msg is None:
@@ -188,6 +208,7 @@ class KafkaConsumer(Topic):
 
     def commit(self):
         self.__consumer.commit(offsets=[self.__tp])
+
 
 def gen_topics():
     for e in EntityType:

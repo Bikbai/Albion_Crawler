@@ -6,7 +6,7 @@ import logging
 from concurrent.futures import ThreadPoolExecutor
 from itertools import repeat
 from typing import List, Union
-import threading
+from rabbit import RabbitMQClient
 
 from rediscache import RedisCache
 from constants import Realm, ApiHelper, EntityType, ScrapeResult, ApiType, EntityKeys
@@ -26,7 +26,8 @@ class API_Scraper:
         log.info(f"Scraper init started, server: {server.name}, entity: {self.entityType}, api: {api_type.name}")
         self.cache = RedisCache(server, self.entityType)
         self.helper = ApiHelper(server)
-        self.kafka = KafkaProducer(server, self.entityType)
+#        self.kafka = KafkaProducer(server, self.entityType)
+        self.queue = RabbitMQClient(server, self.entityType)
         self.apiType = api_type
         log.info("Scraper init done")
         self.full_scrape = False
@@ -88,24 +89,25 @@ class API_Scraper:
             if len(data) == 0:
                 return
             try:
-                self.kafka.begin_tran()
+#                self.kafka.begin_tran()
                 # вначале пишем в кафку, если успешно - пишем в редис
                 with timer(logger=log, descriptor=f"do_scrape: kafka write"):
                     for row in data:
                         message = row[0]
                         key = row[1]
-                        self.kafka.send_message(
-                            message=message,
-                            key=key,
-                            tx_scope=TX_Scope.TX_EXTERNAL)
+                        self.queue.send_message(message, headers={"id": key})
+#                        self.kafka.send_message(
+#                            message=message,
+#                            key=key,
+#                            tx_scope=TX_Scope.TX_EXTERNAL)
                 with timer(logger=log, descriptor=f"do_scrape: redis write"):
                     for row in data:
                         key = row[1]
                         self.cache.put_value(key)
-                self.kafka.commit_tran()
-                log.info(f"Written {len(data)} rows to kafka {self.kafka.info()}.")
+#                self.kafka.commit_tran()
+                log.info(f"Written {len(data)} rows to queue {self.queue.queue_name}.")
             except Exception as ex:
-                self.kafka.rollback_tran()
+ #               self.kafka.rollback_tran()
                 log.error(f"Caught exception when writing data:")
                 log.error(ex, stack_info=True, exc_info=True)
 

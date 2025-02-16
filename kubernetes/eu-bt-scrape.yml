@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: bt-scrape
+  namespace: euro
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      ttlSecondsAfterFinished: 86400
+      activeDeadlineSeconds: 6000
+      template:
+        spec:
+          containers:
+          - name: eu-bt-scrape
+            image: abome40k/albion-scraper:battles
+            imagePullPolicy: Always
+            command:  ["python"]
+            args:
+              - scrape_starter.py
+              - -server
+              - europe
+              - -apitype
+              - BATTLES
+          restartPolicy: Never

@@ -1,10 +1,19 @@
 from unittest import TestCase
+
+from constants import Realm
 from postgresdb import PostgresDB
 import json
 
 class TestPostgresDB(TestCase):
 
-    def insert_dummy_guild(self):
+
+    def test_select(self):
+        id = "wtqzxhOLStCwyD_ixIxC3A"
+        with self.pg.conn.cursor() as cur:
+            x = cur.execute(f"select internal_id from {self.pg.realm.name}.guild where id = (%s)", (id,)).fetchone()
+            print(x[0])
+
+    def test_insert_dummy_guild(self):
         id = 'dummy_id'
         name = 'dummy_name'
         internal_id = self.pg.insert_dummy_guild(id, name)
@@ -48,10 +57,10 @@ class TestPostgresDB(TestCase):
             "AttacksWon": null,\
             "DefensesWon": null,\
             "MemberCount": 27}'
-        cls.pg = PostgresDB()
+        cls.pg = PostgresDB(realm=Realm.europe)
         with cls.pg.conn.cursor() as cur:
-            cur.execute("delete from player where id like 'dummy_id%'")
-            cur.execute("delete from guild where id = 'dummy_id'")
+            cur.execute(f"delete from {cls.pg.realm.name}.player where id like 'dummy_id%'")
+            cur.execute(f"delete from {cls.pg.realm.name}.guild where id = 'dummy_id'")
             cls.pg.conn.commit()
         cls.test_data: json
         cls.test_data = json.loads(guild_data_str)

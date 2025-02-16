@@ -6,3 +6,4 @@ clickhouse_connect
 confluent_kafka
 httpx
 python-dateutil
+pika
