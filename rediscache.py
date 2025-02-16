@@ -74,3 +74,4 @@ class RedisCache:
     def flush(self):
         log.warning(f"REDIS: cache {self.__redis_db_number} was erased!")
         self.__redis.flushdb()
+

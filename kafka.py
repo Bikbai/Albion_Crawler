@@ -52,6 +52,9 @@ topic_suffix_map = {
 }
 
 class Topic:
+    def __init__(self):
+        pass
+
     topic_suffix_map = {
         EntityType.guild: 'guild',
         EntityType.player: 'player',
@@ -148,8 +151,9 @@ class KafkaProducer(Topic):
 
 
 class KafkaConsumer(Topic):
-    def __init__(self, realm: Realm, topic: EntityType | str):
+    def __init__(self, realm: Realm, topic: EntityType | str, group_id: str = "main.processor.v4"):
         log.info("Kafka consumer init started")
+        consumer_config.update({"group.id": group_id})
         self.__consumer = Consumer(consumer_config)
         self.__topic = super(KafkaConsumer, self).get_topic_name(realm, topic)
         self.__consumer.subscribe([self.__topic])

@@ -40,7 +40,7 @@ returning internal_id"
             cur.execute(sql, (item_code, Json(json_data)), prepare=True)
             row = cur.fetchone()
             self.conn.commit()
-            if row is None:
+            if row is None or row[0] is None:
                 retval = cur.execute(f"select internal_id from {self.realm.name}.player where code = (%s)", (item_code,)).fetchone()[0]
                 if retval is None:
                     raise f'insert_item: item {item_code} not found'
@@ -59,7 +59,7 @@ returning internal_id"
             cur.execute(sql, (id, guild_internal_id, name), prepare=True)
             row = cur.fetchone()
             self.conn.commit()
-            if row is None:
+            if row is None or row[0] is None:
                 return cur.execute(f"select internal_id from {self.realm.name}.player where id = (%s)", (id, )).fetchone()[0]
         return row[0]
 
@@ -74,7 +74,7 @@ returning internal_id"
             cur.execute(sql, (id, name), prepare=True)
             row = cur.fetchone()
             self.conn.commit()
-            if row is None:
+            if row is None or row[0] is None:
                 return cur.execute(f"select internal_id from {self.realm.name}.guild where id = (%s)", (id, )).fetchone()[0]
         return row[0]
 

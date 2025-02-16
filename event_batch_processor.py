@@ -39,7 +39,6 @@ class EventBatchProcessor:
             self.consumer.commit()
         except Exception as ex:
             log.error(ex)
-            self.consumer.roll
 
     def convert(self, row):
         converted = []
