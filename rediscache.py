@@ -71,6 +71,17 @@ class RedisCache:
     def put_value(self, key, value=""):
         self.__redis.set(name=key, value=value)
 
+    def test_dict(self):
+        items = []
+        for key in self.__redis.scan_iter():
+            value = self.__redis.get(key)
+            if value is None or value == 'NULL':
+                items.append(key)
+        if len(items) > 0:
+            print(items)
+            return False
+        return True
+
     def flush(self):
         log.warning(f"REDIS: cache {self.__redis_db_number} was erased!")
         self.__redis.flushdb()

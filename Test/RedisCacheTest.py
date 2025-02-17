@@ -7,7 +7,7 @@ class RedisCacheTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        entity_type = EntityType.item
+        entity_type = EntityType.guild
         realm = Realm.asia
         cls.entity_type = entity_type
         cls.pg = PostgresDB(realm)
@@ -35,6 +35,10 @@ class RedisCacheTest(unittest.TestCase):
         self.cache.reload_from_db(rows)
         redis_count = self.cache.ext_info()
         self.assertEqual(len(rows), redis_count)
+
+    def test_dict(self):
+        v = self.cache.test_dict()
+        self.assertEqual(v, True)
 
 if __name__ == '__main__':
     unittest.main()

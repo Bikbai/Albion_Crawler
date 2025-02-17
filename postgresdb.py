@@ -41,7 +41,7 @@ returning internal_id"
             row = cur.fetchone()
             self.conn.commit()
             if row is None or row[0] is None:
-                retval = cur.execute(f"select internal_id from {self.realm.name}.player where code = (%s)", (item_code,)).fetchone()[0]
+                retval = cur.execute(f"select internal_id from {self.realm.name}.item where code = (%s)", (item_code,)).fetchone()[0]
                 if retval is None:
                     raise f'insert_item: item {item_code} not found'
                 return retval
